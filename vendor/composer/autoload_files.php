@@ -16,5 +16,6 @@ return array(
     '23c18046f52bef3eea034657bafda50f' => $vendorDir . '/symfony/polyfill-php81/bootstrap.php',
     'fc73bab8d04e21bcdda37ca319c63800' => $vendorDir . '/mikecao/flight/flight/autoload.php',
     '5b7d984aab5ae919d3362ad9588977eb' => $vendorDir . '/mikecao/flight/flight/Flight.php',
+    'd507e002f7fce7f0c6dbf1f22edcb902' => $vendorDir . '/tracy/tracy/src/Tracy/functions.php',
     '0ccdf99b8f62f02c52cba55802e0c2e7' => $vendorDir . '/zircote/swagger-php/src/functions.php',
 );
