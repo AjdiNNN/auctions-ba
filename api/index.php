@@ -29,7 +29,6 @@ Flight::map('query', function ($name, $default_value = null) {
 Flight::route('/*', function () {
     //return TRUE;
     //perform JWT decode
-    return true;
     $path = Flight::request()->url;
     if ($path == '/login' || $path == '/docs.json' || $path == '/register') {
         return true;

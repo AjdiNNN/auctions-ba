@@ -1,5 +1,6 @@
 # PHP
 /vendor
-/api/dist
 # Vercel
 .vercel
+# Angular
+/angular
