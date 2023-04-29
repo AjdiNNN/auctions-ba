@@ -29,6 +29,7 @@ Flight::map('query', function ($name, $default_value = null) {
 Flight::route('/*', function () {
     //return TRUE;
     //perform JWT decode
+    return true;
     $path = Flight::request()->url;
     if ($path == '/login' || $path == '/docs.json' || $path == '/register') {
         return true;
@@ -60,3 +61,4 @@ Flight::route('GET /docs.json', function () {
 require_once __DIR__.'/routes/UserRoutes.php';
 
 Flight::start();
+?>
