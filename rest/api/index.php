@@ -58,9 +58,6 @@ Flight::route('GET /docs.json', function () {
     echo $openapi->toJson();
 });
 
-Flight::route('GET /test', function () {
-    echo 'test';
-});
 require_once __DIR__.'/routes/UserRoutes.php';
 
 Flight::start();
