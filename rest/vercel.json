@@ -3,8 +3,11 @@
       "api/*.php": {
         "runtime": "vercel-php@0.6.0"
       },
-      "api/routes": {
+      "api/routes/*.php": {
         "runtime": "vercel-php@0.6.0"
-      }
+      },
+      "api/index.php": {
+        "runtime": "vercel-php@0.6.0"
+      } 
     }
   }
