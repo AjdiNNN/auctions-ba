@@ -57,7 +57,7 @@ Flight::route('/*', function () {
     }
 });*/
 Flight::route('GET /docs.json', function () {
-    $openapi = \OpenApi\Generator::scan(['routes']);
+    $openapi = \OpenApi\Generator::scan(['routes/']);
     header('Content-Type: application/json');
     echo $openapi->toJson();
 });
