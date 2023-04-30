@@ -26,7 +26,6 @@ use Firebase\JWT\Key;
 * )
 */
 Flight::route('POST /login', function () {
-    Fligh::json("test");
     $login = Flight::request()->data->getData();
     $user = Flight::userDao()->checkExistsEmail($login['email']);
     if (isset($user['id'])) {
