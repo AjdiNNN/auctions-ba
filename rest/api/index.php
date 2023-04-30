@@ -25,6 +25,10 @@ Flight::map('query', function ($name, $default_value = null) {
     return urldecode($query_param);
 });
 
+Flight::route('/', function(){
+    echo 'hello world!';
+});
+
 // middleware method for login
 Flight::route('/*', function () {
     //return TRUE;
