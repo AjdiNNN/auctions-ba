@@ -28,7 +28,7 @@ Flight::map('query', function ($name, $default_value = null) {
 // middleware method for login
 
 
-/* REST API documentation endpoint 
+/* REST API documentation endpoint */
 Flight::route('/*', function () {
     //return TRUE;
     //perform JWT decode
@@ -51,7 +51,7 @@ Flight::route('/*', function () {
             return false;
         }
     }
-});*/
+});
 Flight::route('GET /docs.json', function () {
     $openapi = \OpenApi\Generator::scan(['routes']);
     header('Content-Type: application/json');
