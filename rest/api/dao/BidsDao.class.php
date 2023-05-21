@@ -9,7 +9,7 @@ require_once __DIR__.'/BaseDao.class.php';
   }
   public function get_by_name($name){
     $name=strtolower($name);
-    $stmt = $this->conn->prepare("SELECT * FROM auctions WHERE LOWER(item_name) LIKE '%".$name."%'");
+    $stmt = $this->conn->prepare("SELECT * FROM auctions WHERE LOWER(b_name) LIKE '%".$name."%'");
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
