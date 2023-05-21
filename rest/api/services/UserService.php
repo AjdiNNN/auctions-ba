@@ -10,7 +10,7 @@ class UserService extends BaseService
         parent::__construct(new UserDao());
     }
 
-    public function checkExistsEmail($email)
+    /*public function checkExistsEmail($email)
     {
         return $this->dao->checkExistsEmail($email);
     }
@@ -18,5 +18,5 @@ class UserService extends BaseService
     public function checkExistsUsername($username)
     {
         return $this->dao->checkExistsUsername($username);
-    }
+    }*/
 }
