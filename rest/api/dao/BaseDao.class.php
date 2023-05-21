@@ -3,9 +3,8 @@
 require_once __DIR__.'/../Config.class.php';
 abstract class BaseDao
 {
-    protected $dao;
 
-    private $conn;
+    protected $conn;
 
     private $tablename;
 

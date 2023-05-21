@@ -8,9 +8,15 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/services/ItemsService.php';
+require_once __DIR__.'/services/BidsService.php';
+require_once __DIR__.'/services/UserService.php';
 require_once __DIR__.'/dao/UserDao.class.php';
 
 Flight::register('userDao', 'UserDao');
+Flight::register('user_service', 'UserService');
+Flight::register('items_service', 'ItemsService');
+Flight::register('bids_service', 'BidsService');
 
 Flight::map('error', function (Exception $ex) {
     // Handle error
@@ -28,7 +34,7 @@ Flight::map('query', function ($name, $default_value = null) {
 // middleware method for login
 
 
-/* REST API documentation endpoint 
+/* REST API documentation endpoint */
 Flight::route('/*', function () {
     //return TRUE;
     //perform JWT decode
@@ -51,7 +57,7 @@ Flight::route('/*', function () {
             return false;
         }
     }
-});*/
+});
 Flight::route('GET /docs.json', function () {
     $openapi = \OpenApi\Generator::scan(['routes']);
     header('Content-Type: application/json');
@@ -59,6 +65,8 @@ Flight::route('GET /docs.json', function () {
 });
 
 require_once __DIR__.'/routes/UserRoutes.php';
+require_once __DIR__.'/routes/ItemsRoutes.php';
+require_once __DIR__.'/routes/BidsRoutes.php';
 
 Flight::start();
 ?>

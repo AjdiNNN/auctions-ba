@@ -75,3 +75,45 @@ Flight::route('POST /register', function () {
         Flight::json(Flight::userDao()->addUser($data));
     }
 });
+
+
+Flight::route('GET /User', function(){
+    Flight::json(Flight::user_service() -> get_all());
+
+});
+
+Flight::route("GET /User_by_id", function(){
+  Flight::json(Flight::user_service()->get_by_id(Flight::request()->query['id']));
+});
+
+
+Flight::route('GET /User/@id', function($id){
+    Flight::json(Flight::user_service() -> get_by_id($id));
+
+});
+
+
+Flight::route('POST /User', function(){
+  $request = Flight::request()->data->getData();
+  Flight::json(['message' => "User added successfully",
+                'data' => Flight::user_service()->add($request)
+               ]);
+
+
+  });
+
+
+  Flight::route('PUT /User/@id', function($id){
+    $User = Flight::request()->data->getData();
+    Flight::json(['message' => "User edit successfully",
+                  'data' => Flight::user_service()->update($User, $id)
+                 ]);
+  });
+
+
+Flight::route('DELETE /User/@id', function($id){
+    Flight::user_service()->delete($id);
+    Flight::json(["message"=> "deleted"]);
+});
+
+?>;
