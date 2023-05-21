@@ -40,4 +40,9 @@ Flight::route('DELETE /items/@id', function($id){
     Flight::json(["message"=> "deleted"]);
 });
 
+Flight::route('GET /items_desc', function(){
+  $name_desc = Flight::query('name_desc');
+  Flight::json(Flight::items_service()->get_by_desc($name_desc));
+});
+
 ?>

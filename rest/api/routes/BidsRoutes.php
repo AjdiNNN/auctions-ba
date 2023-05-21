@@ -40,4 +40,9 @@ Flight::route('DELETE /bids/@id', function($id){
     Flight::json(["message"=> "deleted"]);
 });
 
+Flight::route('GET /locked/bids_name', function(){
+  $name = Flight::query('name');
+  Flight::json(Flight::bids_service()->get_by_name($name));
+});
+
 ?>
