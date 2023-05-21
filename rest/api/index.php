@@ -16,7 +16,7 @@ require_once __DIR__.'/dao/UserDao.class.php';
 Flight::register('userDao', 'UserDao');
 Flight::register('user_service', 'UserService');
 Flight::register('items_service', 'ItemsService');
-Flight::register('bids_service', 'UserService');
+Flight::register('bids_service', 'BidsService');
 
 Flight::map('error', function (Exception $ex) {
     // Handle error
