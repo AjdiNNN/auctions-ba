@@ -17,9 +17,9 @@ In this release, the following features are available:
 
 - Swagger documentation set up but it is not working on vercel deployment, due to vercel serverless functions not exposing routes directly via directories.
 
-- Note currently there is no database, so api calls wont return anything, except SQL error. There will be working database in upcomming days.
+- Note currently there is no database, so api calls won`t return anything, except SQL error. Database will be also hosted in upcomming days.
 
-- Also there is angular set up made for our frontend which will be done in upcomming month
+- Also there is angular set up made for our frontend which will be done in upcomming weeks.
 
 ---
 > Ajdin Hukić, Amina Kodžaga 
