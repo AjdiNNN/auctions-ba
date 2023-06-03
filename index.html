@@ -76,7 +76,7 @@
           <button class="button-icon-rounded right" href="#">See more...</button>
         </div>
         <div class="item-container">
-          <div class="item-scroll">
+          <div class="item-scroll" id="item-scroll-1">
             <div class="item">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
@@ -114,7 +114,7 @@
           <button class="button-icon-rounded right" href="#">See more...</button>
         </div>
         <div class="item-container">
-          <div class="item-scroll">
+          <div class="item-scroll" id="item-scroll-2">
             <div class="item">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
@@ -152,7 +152,7 @@
           <button class="button-icon-rounded right" href="#">See more...</button>
         </div>
         <div class="item-container">
-          <div class="item-scroll">
+          <div class="item-scroll" id="item-scroll-3">
             <div class="item">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
@@ -186,9 +186,12 @@
       </div>
     </main>
     <!-- Main -->
+
+    <!-- Footer -->
     <footer>
-      
+
     </footer>
+    <!-- Footer -->
 
     <!-- Modals -->
     <div class="fullhamburger">
@@ -239,9 +242,9 @@
         const x = e.pageX - slider.offsetLeft;
         const walk = (x - startX) * 3; //scroll-fast
         slider.scrollLeft = scrollLeft - walk;
-        console.log(walk);
       });
-      const itemSlider = document.querySelector('.item-scroll');
+
+      const itemSlider = document.querySelector('#item-scroll-1');
       let itemSliderisDown = false;
       let itemSliderstartX;
       let itemSliderscrollLeft;
@@ -266,7 +269,59 @@
         const x = e.pageX - itemSlider.offsetLeft;
         const walk = (x - itemSliderstartX) * 3; //scroll-fast
         itemSlider.scrollLeft = itemSliderscrollLeft - walk;
-        console.log(walk);
+      });
+
+      const itemSlider2 = document.querySelector('#item-scroll-2');
+      let itemSlider2isDown = false;
+      let itemSliderstartX2;
+      let itemSliderscrollLeft2;
+
+      itemSlider2.addEventListener('mousedown', (e) => {
+        itemSlider2isDown = true;
+        itemSlider2.classList.add('active');
+        itemSliderstartX2 = e.pageX - itemSlider2.offsetLeft;
+        itemSliderscrollLeft2 = itemSlider2.scrollLeft;
+      });
+      itemSlider2.addEventListener('mouseleave', () => {
+        itemSlider2isDown = false;
+        itemSlider2.classList.remove('active');
+      });
+      itemSlider2.addEventListener('mouseup', () => {
+        itemSlider2isDown = false;
+        itemSlider2.classList.remove('active');
+      });
+      itemSlider2.addEventListener('mousemove', (e) => {
+        if(!itemSlider2isDown) return;
+        e.preventDefault();
+        const x = e.pageX - itemSlider2.offsetLeft;
+        const walk = (x - itemSliderstartX2) * 3; //scroll-fast
+        itemSlider2.scrollLeft = itemSliderscrollLeft2 - walk;
+      });
+      const itemSlider3 = document.querySelector('#item-scroll-3');
+      let itemSlider3isDown = false;
+      let itemSliderstartX3;
+      let itemSliderscrollLeft3;
+
+      itemSlider3.addEventListener('mousedown', (e) => {
+        itemSlider3isDown = true;
+        itemSlider3.classList.add('active');
+        itemSliderstartX3 = e.pageX - itemSlider3.offsetLeft;
+        itemSliderscrollLeft3 = itemSlider3.scrollLeft;
+      });
+      itemSlider3.addEventListener('mouseleave', () => {
+        itemSlider3isDown = false;
+        itemSlider3.classList.remove('active');
+      });
+      itemSlider3.addEventListener('mouseup', () => {
+        itemSlider3isDown = false;
+        itemSlider3.classList.remove('active');
+      });
+      itemSlider3.addEventListener('mousemove', (e) => {
+        if(!itemSlider3isDown) return;
+        e.preventDefault();
+        const x = e.pageX - itemSlider3.offsetLeft;
+        const walk = (x - itemSliderstartX3) * 3; //scroll-fast
+        itemSlider3.scrollLeft = itemSliderscrollLeft3 - walk;
       });
     </script>
   </body>

@@ -1,0 +1,129 @@
+:root {
+    --background-color:#003D50;
+    --primary-color:#FBBF24;
+    --accent-color:#155E75;
+    --side-pading: 25px;
+}
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+
+body
+{
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  background: var(--background-color) !important; ;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.login-container
+{
+
+/* Auto layout */
+
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 20px 0px;
+width: 400px;
+height: 430px;
+
+/* Accent */
+
+background: var(--accent-color);
+border-radius: 20px;
+}
+.logo {
+  max-height: 100px;
+}
+h1 {
+  color: #fff;
+}
+#signinForm {
+  display: flex ;
+  flex-direction: column;
+  gap: 7px;
+}
+.button-icon-rounded
+{
+    /* Button */
+
+    /* Auto layout */
+    color: #000;
+    border: none;
+    /* Primary */
+    border-radius: 27px;
+    background: var(--primary-color);
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    font-weight: 400;
+    font-size: 16px;
+    text-decoration: none;
+    /* Button */
+
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 32px;
+    gap: 10px;
+
+    width: 250px;
+    height: 47px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+
+}
+
+.button-icon-rounded i
+{
+    color: #EEF2FF;
+}
+.account {
+  
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 0px;
+
+
+  color: #eeca00 !important;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 3;
+  flex-grow: 0;
+}
+.forgot {
+  
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 0px;
+
+
+  color: #00abff !important;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 3;
+  flex-grow: 0;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Auctions.ba</title>
+    <link rel="stylesheet" href="styles/auth.css">
+    <link rel="icon" href="assets/logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="styles/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="login-container">
+      <div><img class="logo" src="assets/logo.png" alt="Auction.ba logo"></div>
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <form id = "signinForm">
+
+    
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" placeholder="johndoe" name="username">
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingLoginPassword" placeholder="Password" name="password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <button class="button-icon-rounded" id="submit" type="submit" name="submiter">Sign in</button>
+        
+      </form>
+      <div>   
+        <button class="btn forgot" data-bs-toggle="modal" data-bs-target="#forgot">Forgot password?</button>
+        <button class="btn account" data-bs-toggle="modal" data-bs-target="#register">No account?</button>
+      </div>
+      &copy; 2023
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
