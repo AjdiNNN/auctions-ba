@@ -30,10 +30,56 @@
       </form>
       <div>   
         <button class="btn forgot" data-bs-toggle="modal" data-bs-target="#forgot">Forgot password?</button>
-        <button class="btn account" data-bs-toggle="modal" data-bs-target="#register">No account?</button>
+        <button class="btn account" data-bs-toggle="modal" onclick="myFunction()" data-bs-target="#register">No account?</button>
       </div>
       &copy; 2023
     </div>
+    <div class="register-container">
+      <h1 class="h3 mb-3 fw-normal">Please register</h1>
+      <form id = "signinForm">
+
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" placeholder="johndoe" name="username">
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingLoginPassword" placeholder="Password" name="password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingLoginPassword" placeholder="Password" name="password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingLoginPassword" placeholder="Password" name="password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingLoginPassword" placeholder="Password" name="password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <button class="button-icon-rounded" id="submit" type="submit" name="submiter">Sign in</button>
+        
+      </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+       function myFunction()
+      {
+          if($(".register-container").is(":visible"))
+          {
+            $(".register-container").hide();
+            $(".login-container").show();
+            
+          }
+          else
+          {
+            $(".register-container").show();
+            $(".register-container").css('display', 'flex');
+            $(".login-container").hide();
+          }
+      }
+    </script>
     <script src="js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
