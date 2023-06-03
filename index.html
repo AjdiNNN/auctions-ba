@@ -24,7 +24,6 @@
         <div class="second-nav">
             <a class="button-icon-rounded" href="#"><i class="ri-add-box-fill"></i>Sell item</a>
             <a class="icon-button"><i class="ri-account-circle-fill"></i></a>
-
         </div>
         <a href="javascript:void(0);" class="hamburger" onclick="myFunction()">
           <i class="ri-menu-line"></i>
@@ -38,7 +37,36 @@
 
     </nav>
     <main>
-        <h1>Welcome to My Website</h1>  
+      <div class="frame">
+        <div class="top">
+          <h1 style="color:aliceblue; float:left;">Categories</h1>
+          <button class="button-icon-rounded right" href="#">See more...</button>
+        </div>
+        <div class="category-container">
+          <div class="category-scroll">
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+
+            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
+
+
+          </div>
+
+        </div>
+      </div>
     </main>
     <div class="fullhamburger">
       <a href="javascript:void(0);" class="hamburger" onclick="myFunction()">
@@ -64,6 +92,33 @@
         };
 
       }
+      const slider = document.querySelector('.category-scroll');
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      });
+      slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+      });
+      slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+      });
+      slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+        console.log(walk);
+      });
     </script>
   </body>
 </html>
