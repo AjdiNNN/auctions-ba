@@ -17,38 +17,53 @@
             <button class="icon-only"><i class="ri-search-2-fill"></i></button>
         </form>
         <div class="main-nav">
-            <a class="button-icon" href="#home"><i class="ri-home-line"></i>Home</a>
+            <a class="button-icon" href="#"><i class="ri-home-line"></i>Home</a>
             <a class="button-icon"><i class="ri-auction-fill"></i>My items</a>
             <a class="button-icon"><i class="ri-vip-crown-fill"></i>Won items</a>
         </div>
         <div class="second-nav">
-            <a class="button-icon-rounded" href="#home"><i class="ri-home-line"></i>Home</a>
-            <a class="icon-button"><i class="ri-search-2-fill"></i></a>
+            <a class="button-icon-rounded" href="#"><i class="ri-add-box-fill"></i>Sell item</a>
+            <a class="icon-button"><i class="ri-account-circle-fill"></i></a>
 
         </div>
         <a href="javascript:void(0);" class="hamburger" onclick="myFunction()">
-            <i class="ri-menu-line"></i>
-            <div class="big-hamburger-content">
-                <p>Hello World!</p>
-                <p>Hello World!</p>
-                <p>Hello World!</p>
-            </div>
+          <i class="ri-menu-line"></i>
+          <div class="big-hamburger-content">
+            <button class="button-icon-rounded" href="#"><i class="ri-add-box-fill"></i>Sell item</button>
+            <button class="button-icon-rounded" href="#"><i class="ri-account-circle-fill"></i>Account</button>
+            <button class="button-icon-rounded" href="#"><i class="ri-vip-crown-fill"></i>Won items</button>
+            <button class="button-icon-rounded" href="#"><i class="ri-auction-fill"></i>My items</button>
+          </div>
         </a>
-        
+
     </nav>
     <main>
         <h1>Welcome to My Website</h1>  
     </main>
-	<script src="index.js"></script>
+    <div class="fullhamburger">
+      <a href="javascript:void(0);" class="hamburger" onclick="myFunction()">
+        <i class="ri-close-line"></i>
+      </a>
+      <a class="button-icon" href="#"><i class="ri-home-line"></i>Home</a>
+      <a class="button-icon"><i class="ri-auction-fill"></i>My items</a>
+      <a class="button-icon"><i class="ri-vip-crown-fill"></i>Won items</a>
+      <a class="button-icon-rounded" href="#"><i class="ri-add-box-fill"></i>Sell item</a>
+      <a class="button-icon-rounded" href="#"><i class="ri-account-circle-fill"></i>Account</a>
+    </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script>
-        function myFunction() {
-          var x = document.getElementById("myTopnav");
-          if (x.className === "topnav") {
-            x.className += " responsive";
-          } else {
-            x.className = "topnav";
-          }
-        }
-        </script>
+      function myFunction()
+      {
+        if($("body").innerWidth()<=834.023){
+          console.log($("body").innerWidth());
+          console.log("check");
+          if($(".fullhamburger").is(":visible"))
+            $(".fullhamburger").hide();
+          else
+            $(".fullhamburger").show();
+        };
+
+      }
+    </script>
   </body>
 </html>
