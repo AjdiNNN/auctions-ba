@@ -521,7 +521,6 @@ main
 @media screen and (max-width: 525px) {
   .search { display:none;}
 }
-<<<<<<< HEAD
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -572,7 +571,6 @@ main
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
-=======
 button:disabled,
 button[disabled]
 {
@@ -616,4 +614,3 @@ button:active  i
 {
   color: #fff;
 }
->>>>>>> a6ac8068409a82eb0911153656892ae36f10f504
