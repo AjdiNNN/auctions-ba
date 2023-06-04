@@ -77,28 +77,28 @@
         </div>
         <div class="item-container">
           <div class="item-scroll" id="item-scroll-1">
-            <div class="item">
+            <div class="item" onclick="auction()">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
                 <div class="triangle-tag">250KM</div>
                 <button class="button-icon-rounded" href="#"><i class="ri-auction-fill"></i>Sell item</button>
               </div>
             </div>
-            <div class="item" style = "background-image: url('assets/bike.jpg');">
+            <div class="item" style = "background-image: url('assets/bike.jpg');" onclick="auction()">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
                 <div class="triangle-tag">250KM</div>
                 <button class="button-icon-rounded" href="#"><i class="ri-auction-fill"></i>Sell item</button>
               </div>
             </div>
-            <div class="item" style = "background-image: url('assets/notebook.webp');">
+            <div class="item" style = "background-image: url('assets/notebook.webp');" onclick="auction()">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
                 <div class="triangle-tag">250KM</div>
                 <button class="button-icon-rounded" href="#"><i class="ri-auction-fill"></i>Sell item</button>
               </div>
             </div>
-            <div class="item" style = "background-image: url('assets/ring.jpg');">
+            <div class="item" style = "background-image: url('assets/ring.jpg');" onclick="auction()">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
                 <div class="triangle-tag">250KM</div>
@@ -115,28 +115,28 @@
         </div>
         <div class="item-container">
           <div class="item-scroll" id="item-scroll-2">
-            <div class="item" style = "background-image: url('assets/badroom.webp');">
+            <div class="item" style = "background-image: url('assets/badroom.webp');" onclick="auction()">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
                 <div class="triangle-tag">250KM</div>
                 <button class="button-icon-rounded" href="#"><i class="ri-auction-fill"></i>Sell item</button>
               </div>
             </div>
-            <div class="item" style = "background-image: url('assets/notebook.webp');">
+            <div class="item" style = "background-image: url('assets/notebook.webp');" onclick="auction()">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
                 <div class="triangle-tag">250KM</div>
                 <button class="button-icon-rounded" href="#"><i class="ri-auction-fill"></i>Sell item</button>
               </div>
             </div>
-            <div class="item" style = "background-image: url('assets/watch.webp');">
+            <div class="item" style = "background-image: url('assets/watch.webp');" onclick="auction()">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
                 <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill"></i>Sell item</button>
+                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Sell item</button>
               </div>
             </div>
-            <div class="item" style = "background-image: url('assets/case.jpg');">
+            <div class="item" style = "background-image: url('assets/case.jpg');" onclick="auction()">
               <div class="item-time">Ending in 20s
                 <div class="triangle"></div>
                 <div class="triangle-tag">250KM</div>
@@ -204,6 +204,34 @@
       <a class="button-icon-rounded" href="#"><i class="ri-add-box-fill"></i>Sell item</a>
       <a class="button-icon-rounded" href="#"><i class="ri-account-circle-fill"></i>Account</a>
     </div>
+    <div class="modale" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="auction-info" style="gap:initial;">
+          <h2 style="color: #fff; margin-bottom: 3px;">Auction ending in <span class="time">30s</span> </h2>
+          <div class="auction-image"></div>
+        </div>
+        <div class="auction-info" style="width: 40%;">
+          <h2 style="color: #fff;">Macbook Pro 2020 <i class="ri-close-fill" onclick="auction()"></i></h2>
+          <p style="text-align: justify; color: antiquewhite;">Touch Bar
+            Touch Bar with integrated Touch ID sensor
+            Finish
+            Silver
+            Space Gray
+            Display
+            Retina display
+            15.4-inch (diagonal) LED-backlit display with IPS technology; 2880-by-1800 native resolution at 220 pixels per inch with support for millions of colors
+            Supported scaled resolutions:
+            1920 by 1200
+            1680 by 1050
+          </p>
+          <form onsubmit="event.preventDefault();" class="bid" role="bid"> 
+            <input id="bid" type="bid" placeholder="Enter 251 BAM or more" autofocus required />
+            <button class="button-icon-rounded bid-button"><i class="ri-search-2-fill"></i>Bid</button>
+        </form>
+        </div>
+      </div>
+    </div>
+    <!-- /Modal -->
     <!-- Modals -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script>
@@ -216,6 +244,17 @@
             $(".fullhamburger").show();
         };
 
+      }
+      function auction()
+      {
+          if($(".modale").hasClass("opened"))
+           {
+            $('.modale').removeClass('opened');
+           }
+          else
+          {
+            $('.modale').addClass('opened')
+          }
       }
       const slider = document.querySelector('.category-scroll');
       let isDown = false;

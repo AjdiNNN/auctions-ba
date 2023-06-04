@@ -614,3 +614,138 @@ button:active  i
 {
   color: #fff;
 }
+.auction-item
+{
+  /* Item */
+
+
+/* Auto layout */
+
+
+
+position: relative;
+width: 800px;
+height: 340px;
+
+/* Background */
+
+background: #003D50;
+box-shadow: inset 25px 25px 88px 5px rgba(0, 0, 0, 0.25);
+}
+.modale:before {
+  content: "";
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.opened:before {
+  display: block;
+}
+.opened .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  top: 20%;
+}
+.modal-dialog {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 15px 25px;
+  gap: 25px;
+  position: fixed;
+  left: calc(50% - 420px);;
+  top: -100%;
+  z-index: 11;
+  width: 800px;
+  height: 340px;
+  background: var(--accent-color);
+  box-shadow: inset 25px 25px 88px 5px rgba(0, 0, 0, 0.25);
+  -webkit-transform: translate(0, -500%);
+  -ms-transform: translate(0, -500%);
+  transform: translate(0, -500%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+}
+.auction-info {
+  /* First section */
+
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  width: 50%;
+  height: 100%;
+
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.auction-info h2 .time
+{
+  color: var(--primary-color);
+}
+.auction-image
+{
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/laptop.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bid
+{
+    display: flex;
+    width: 100%;
+    margin: auto;
+}
+input[type="bid"],
+.icon-only {
+transition: box-shadow .3s;
+}
+input[type="bid"] {
+  width: 100%;
+  height: 32px;
+  padding: 12px;
+  border: 1px solid #FBBF24;
+  border-radius: 27px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+
+input[type="bid"]:hover{
+  outline: none;
+  box-shadow: 0px 0px 0px 1px #FBBF24;
+}
+
+input[type="bid"]:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 1px #7c5b06;
+  }
+.bid-button {
+    background: var(--primary-color);
+    color: white;
+    border: 0;
+    margin-left: -10%;
+}
+.bid-button i{
+  color: #000;
+}
