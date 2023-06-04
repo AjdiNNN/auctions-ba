@@ -614,6 +614,12 @@ button:active  i
 {
   color: #fff;
 }
+@media (max-width: 800px) {
+  .modal-dialog {
+    transform: scale(0.55) !important;
+  }
+}
+
 .auction-item
 {
   /* Item */
