@@ -220,14 +220,17 @@ input[type="search"]:focus {
   display: none;
   z-index: 1;
   justify-items: center;
-  margin-left: -55px;
+  margin-left: -100px;
   margin-top: 125px;
+  background-color: var(--accent-color);
+  border: 1px var(--primary-color);
+  border-style: solid;
 }
 
 .big-hamburger-content button{
   margin-top: 15px;
-  width: 160%;
-  height: 80%;
+  min-width: 150px;
+  margin: 7px;
 }
 .big-hamburger-content button:nth-child(3) {
   display: none;
@@ -471,12 +474,12 @@ main
   }
 }
 @media screen and (max-width: 1200px) {
-  .main-nav a:nth-child(3) { display: none; }
+  .main-nav button:nth-child(3) { display: none; }
   .big-hamburger-content button:nth-child(3) { display: block; }
   .big-hamburger-content {margin-top: 165px;}
 }
 @media screen and (max-width: 1125px) {
-  .main-nav a:nth-child(2) { display: none; }
+  .main-nav button:nth-child(2) { display: none; }
   .big-hamburger-content button:nth-child(4) { display: block; }
   .big-hamburger-content {margin-top: 200px;}
 }
