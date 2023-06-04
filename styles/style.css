@@ -755,3 +755,73 @@ input[type="bid"]:focus {
 .bid-button i{
   color: #000;
 }
+footer{
+  /* Footbar */
+
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px 35px;
+  gap: 15px;
+
+  width: 100%;
+  height: 207px;
+
+  /* Accent */
+
+  background: var(--accent-color);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 5;
+  flex-grow: 0;
+  box-sizing: border-box;
+}
+.footer-section{
+  /* Frame 14 */
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 3.5em;
+  height: 100%;
+}
+.footer-section h3{
+  color: var(--primary-color);
+  margin: 0 auto;
+  padding: 0.5em 0;
+}
+.footer-section h5{
+  color: #fff;
+  margin: 0.3em;
+  width: 100%;
+  font-style: italic;
+  font-weight: 300;
+}
+footer i{
+  color: var(--primary-color);
+}
+.copyright{
+  color: #fff;
+}
+@media screen and (max-width: 1200px) {
+  footer i{display: none;}
+}
+@media screen and (max-width: 1125px) {
+  .copyright{
+    display: none;
+  }
+}
+@media screen and (max-width: 850px) {
+  footer .logo{ display: none;}
+}
+@media screen and (max-width: 600px) {
+  footer{
+    flex-direction: column;
+    height: auto;
+  }
+}
