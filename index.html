@@ -1,448 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Auctions.ba</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="icon" href="assets/logo.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-  </head>
-  <body>
-    <!-- Top navigation -->
-    <nav class="topnav">
-        <div><img class="logo" src="assets/logo.png" alt="Auction.ba logo"></div>
-        <form onsubmit="event.preventDefault();" class="search" role="search"> 
-            <input id="search" type="search" placeholder="eg. supercar, video card" autofocus required />
-            <button class="icon-only"><i class="ri-search-2-fill"></i></button>
-        </form>
-        <div class="main-nav">
-            <button class="button-icon" href="#"><i class="ri-home-line"></i>Home</a>
-            <button class="button-icon"><i class="ri-auction-fill"></i>My items</a>
-            <button class="button-icon"><i class="ri-vip-crown-fill"></i>Won items</a>
-        </div>
-        <div class="second-nav">
-            <button class="button-icon-rounded" onclick="location.href='sell.html'"><i class="ri-add-box-fill"></i>Sell item</a>
-            <button class="icon-button"><i class="ri-account-circle-fill"></i></a>
-        </div>
-        <a href="javascript:void(0);" class="hamburger" onclick="myFunction()">
-          <i class="ri-menu-line"></i>
-          <div class="big-hamburger-content">
-            <button class="button-icon-rounded" onclick="location.href='sell.html'"><i class="ri-add-box-fill"></i>Sell item</button>
-            <button class="button-icon-rounded" href="#"><i class="ri-account-circle-fill"></i>Account</button>
-            <button class="button-icon-rounded" href="#"><i class="ri-vip-crown-fill"></i>Won items</button>
-            <button class="button-icon-rounded" href="#"><i class="ri-auction-fill"></i>My items</button>
-          </div>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Auctions.ba</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+</head>
+
+<body>
+  <header>
+    
+    <nav class="navbar navbar-expand-lg navbar-secondary bg-element">
+      <!-- Container wrapper -->
+      <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand me-2" href="#">
+          <img
+            src="img/logo.png"
+            height="75"
+            alt="Logo"
+            loading="lazy"
+            style="margin-top: -5px;"
+          />
         </a>
-    </nav>
-    <!-- Top navigation -->
-
-    <!-- Main -->
-    <main>
-      <div class="frame">
-        <div class="top">
-          <h1 style="color:aliceblue; float:left;">Categories</h1>
-          <button class="button-icon-rounded right" href="#">See more...</button>
-        </div>
-        <div class="category-container">
-          <div class="category-scroll">
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-account-circle-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-            <button class="category"><i class="ri-book-2-fill ri-2x"></i>Book</button>
-
+    
+          <!-- Left links -->
+          <ul class="nav justify-content-center">
+            <li class="nav-item px-2">
+              <button class="btn btn-primary text-light"> <span class="icon-bank"></span>  Dashboard</button>
+            </li>
+            <li class="nav-item px-2">
+              <button class="btn btn-primary text-light" onclick="location.href='items.html'"><span class="icon-navicon"></span>  My items</button>
+            </li>
+          </ul>
+          <!-- Right links -->
+    
+          <div class="d-flex align-items-center">
+            <button class="btn btn-primary text-light icon-btn" href="#" onclick="userService.logout()">
+              <span class="icon-exit_to_app"></span>
+            </button>
           </div>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+  </header>
 
-        </div>
-      </div>
-      <div class="frame">
-        <div class="top">
-          <h1 style="color:aliceblue; float:left;">Ending soon</h1>
-          <button class="button-icon-rounded right" href="#">See more...</button>
-        </div>
-        <div class="item-container">
-          <div class="item-scroll" id="item-scroll-1">
-            <div class="item" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/bike.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/notebook.webp');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/ring.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/ring.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/ring.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-        </div>
-      </div>
-      </div>
-      <div class="frame">
-        <div class="top">
-          <h1 style="color:aliceblue; float:left;">Low budget</h1>
-          <button class="button-icon-rounded right" href="#">See more...</button>
-        </div>
-        <div class="item-container">
-          <div class="item-scroll" id="item-scroll-2">
-            <div class="item" style = "background-image: url('assets/badroom.webp');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/notebook.webp');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/watch.webp');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/case.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/ring.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/ring.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-        </div>
-      </div>
-      </div>
-      <div class="frame">
-        <div class="top">
-          <h1 style="color:aliceblue; float:left;">Highest priced</h1>
-          <button class="button-icon-rounded right" href="#">See more...</button>
-        </div>
-        <div class="item-container">
-          <div class="item-scroll" id="item-scroll-3">
-            <div class="item">
-              <div class="item-time">Ending in 30s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/bike.jpg');">
-              <div class="item-time">Ending in 30s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/vespa.jpg');">
-              <div class="item-time">Ending in 30s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/rings.webp');">
-              <div class="item-time">Ending in 30s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/ring.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-            <div class="item" style = "background-image: url('assets/ring.jpg');" onclick="auction()">
-              <div class="item-time">Ending in 20s
-                <div class="triangle"></div>
-                <div class="triangle-tag">250KM</div>
-                <button class="button-icon-rounded" href="#"><i class="ri-auction-fill" onclick="auction()"></i>Bid</button>
-              </div>
-            </div>
-        </div>
-      </div>
-      </div>
-    </main>
-    <!-- Main -->
-
-    <!-- Footer -->
-    <footer>
-      <div class="footer-section">
-        <h3>ITEMS</h3>
-        <h5>My items</h5>
-        <h5>Won items</h5>
-        <h5 onclick="location.href='sell.html'">Sell item</h5>
-      </div>
-      <div class="footer-section">
-        <h3>ITEMS</h3>
-        <h5>My items</h5>
-        <h5>My items</h5>
-        <h5>My items</h5>
-        <h5>My items</h5>
-      </div>
-      <div class="footer-section">
-        <h3>ITEMS</h3>
-        <h5>My items</h5>
-        <h3>ITEMS</h3>
-        <h5>My items</h5>
-        <h5>My items</h5>
-      </div>
-      <div class="footer-section">
-        <h3>ITEMS</h3>
-        <h5>My items</h5>
-        <h5>My items</h5>
-        <h5>My items</h5>
-        <h5>My items</h5>
-      </div>
-      <div><img class="logo" src="assets/logo.png" alt="Auction.ba logo"></div>
-      <h5 class="copyright">Copyright © 2023 Auctions.ba Inc.</h3>
-      <i class="ri-facebook-circle-fill ri-2x"></i>
-      <i class="ri-instagram-fill ri-2x"></i>
-      <i class="ri-linkedin-fill ri-2x"></i>
-    </footer>
-    <!-- Footer -->
-
-    <!-- Modals -->
-    <div class="fullhamburger">
-      <a href="javascript:void(0);" class="hamburger" onclick="myFunction()">
-        <i class="ri-close-line"></i>
-      </a>
-      <a class="button-icon" href="#"><i class="ri-home-line"></i>Home</a>
-      <a class="button-icon"><i class="ri-auction-fill"></i>My items</a>
-      <a class="button-icon"><i class="ri-vip-crown-fill"></i>Won items</a>
-      <a class="button-icon-rounded" onclick="location.href='sell.html'"><i class="ri-add-box-fill"></i>Sell item</a>
-      <a class="button-icon-rounded" href="#"><i class="ri-account-circle-fill"></i>Account</a>
-    </div>
-    <div class="modale" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="auction-info" style="gap:initial;">
-          <h2 style="color: #fff; margin-bottom: 3px;">Auction ending in <span class="time">30s</span> </h2>
-          <div class="auction-image"></div>
-        </div>
-        <div class="auction-info" style="width: 40%;">
-          <h2 style="color: #fff;">Macbook Pro 2020 <i class="ri-close-fill" onclick="auction()"></i></h2>
-          <p style="text-align: justify; color: antiquewhite;">Touch Bar
-            Touch Bar with integrated Touch ID sensor
-            Finish
-            Silver
-            Space Gray
-            Display
-            Retina display
-            15.4-inch (diagonal) LED-backlit display with IPS technology; 2880-by-1800 native resolution at 220 pixels per inch with support for millions of colors
-            Supported scaled resolutions:
-            1920 by 1200
-            1680 by 1050
-          </p>
-          <form onsubmit="event.preventDefault();" class="bid" role="bid"> 
-            <input id="bid" type="bid" placeholder="Enter 251 BAM or more" autofocus required />
-            <button class="button-icon-rounded bid-button"><i class="ri-search-2-fill"></i>Bid</button>
-        </form>
-        </div>
+  <main>
+    <div class="text-center mt-5 text-light">
+      <div class="container marketing" style="margin-top:50px;">
+        <div id="item-list" class="row">
+          <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div><!-- /.row -->
       </div>
     </div>
-    <!-- /Modal -->
-    <!-- Modals -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script>
-      function myFunction()
-      {
-        if($("body").innerWidth()<=834.023){
-          if($(".fullhamburger").is(":visible"))
-            $(".fullhamburger").hide();
-          else
-            $(".fullhamburger").show();
-        };
+  </main>
+</body>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
 
-      }
-      function auction()
-      {
-          if($(".modale").hasClass("opened"))
-           {
-            $('.modale').removeClass('opened');
-           }
-          else
-          {
-            $('.modale').addClass('opened')
-          }
-      }
-      const slider = document.querySelector('.category-scroll');
-      let isDown = false;
-      let startX;
-      let scrollLeft;
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="js/MainService.js"></script>
+<script src="js/user-service.js"></script>
 
-      slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.classList.add('active');
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-      });
-      slider.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.classList.remove('active');
-      });
-      slider.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.classList.remove('active');
-      });
-      slider.addEventListener('mousemove', (e) => {
-        if(!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 3; //scroll-fast
-        slider.scrollLeft = scrollLeft - walk;
-      });
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-body py-0">
 
-      const itemSlider = document.querySelector('#item-scroll-1');
-      let itemSliderisDown = false;
-      let itemSliderstartX;
-      let itemSliderscrollLeft;
+        <div class="d-flex main-content" style="min-height: 450px;">
+          <div class="bg-image promo-img mr-3 w-100" id="dataImage" style=" background-size: cover; background-repeat: no-repeat; background-position: center; ">
+            <span class="discount" id="modalDate" datetime=""></span>
+          </div>
+          <div class="content-text p-4 px-5 align-item-stretch w-75">
+            <div class="text-center">
+                <a onclick="$('#exampleModalCenter').modal('hide');" class="share"><span class="icon-reply"></span></a>
+                <h3 class="mb-3 line" id="dataTitle">Grand Prix 4000</h3>
+                <p class="mb-3">
+                    <span class="icon-info"></span>
 
-      itemSlider.addEventListener('mousedown', (e) => {
-        itemSliderisDown = true;
-        itemSlider.classList.add('active');
-        itemSliderstartX = e.pageX - itemSlider.offsetLeft;
-        itemSliderscrollLeft = itemSlider.scrollLeft;
-      });
-      itemSlider.addEventListener('mouseleave', () => {
-        itemSliderisDown = false;
-        itemSlider.classList.remove('active');
-      });
-      itemSlider.addEventListener('mouseup', () => {
-        itemSliderisDown = false;
-        itemSlider.classList.remove('active');
-      });
-      itemSlider.addEventListener('mousemove', (e) => {
-        if(!itemSliderisDown) return;
-        e.preventDefault();
-        const x = e.pageX - itemSlider.offsetLeft;
-        const walk = (x - itemSliderstartX) * 3; //scroll-fast
-        itemSlider.scrollLeft = itemSliderscrollLeft - walk;
-      });
+                </p>
 
-      const itemSlider2 = document.querySelector('#item-scroll-2');
-      let itemSlider2isDown = false;
-      let itemSliderstartX2;
-      let itemSliderscrollLeft2;
+                <p class="mb-3" id="dataDescription"  style="word-wrap: break-word;">All their equipment and instruments are alive. The sky was this is cloudless and of a deep dark blue. A shining crescent far beneath the flying vessel.</p>
+                <hr>
+                <div class="sr-only w-100 text-center" id="modalText" value="-1">
+                  <div class="spinner-border" role="status">
+                  </div>
+                </div>
+                <div class="d-flex w-100">
+                  <form class="form-inline" id="bidform">
+                    <div class="input-group mb-2 mr-sm-2" id="bid">
 
-      itemSlider2.addEventListener('mousedown', (e) => {
-        itemSlider2isDown = true;
-        itemSlider2.classList.add('active');
-        itemSliderstartX2 = e.pageX - itemSlider2.offsetLeft;
-        itemSliderscrollLeft2 = itemSlider2.scrollLeft;
-      });
-      itemSlider2.addEventListener('mouseleave', () => {
-        itemSlider2isDown = false;
-        itemSlider2.classList.remove('active');
-      });
-      itemSlider2.addEventListener('mouseup', () => {
-        itemSlider2isDown = false;
-        itemSlider2.classList.remove('active');
-      });
-      itemSlider2.addEventListener('mousemove', (e) => {
-        if(!itemSlider2isDown) return;
-        e.preventDefault();
-        const x = e.pageX - itemSlider2.offsetLeft;
-        const walk = (x - itemSliderstartX2) * 3; //scroll-fast
-        itemSlider2.scrollLeft = itemSliderscrollLeft2 - walk;
-      });
-      const itemSlider3 = document.querySelector('#item-scroll-3');
-      let itemSlider3isDown = false;
-      let itemSliderstartX3;
-      let itemSliderscrollLeft3;
+                      <span class="icon-money d-flex align-items-center" id="money" style="margin-top:-0.5rem"></span>
+                        
+                      <input type="text" name="amount" class="form-control mb-2 mx-1" id="bidAmount" placeholder="Enter bid amount">
 
-      itemSlider3.addEventListener('mousedown', (e) => {
-        itemSlider3isDown = true;
-        itemSlider3.classList.add('active');
-        itemSliderstartX3 = e.pageX - itemSlider3.offsetLeft;
-        itemSliderscrollLeft3 = itemSlider3.scrollLeft;
-      });
-      itemSlider3.addEventListener('mouseleave', () => {
-        itemSlider3isDown = false;
-        itemSlider3.classList.remove('active');
-      });
-      itemSlider3.addEventListener('mouseup', () => {
-        itemSlider3isDown = false;
-        itemSlider3.classList.remove('active');
-      });
-      itemSlider3.addEventListener('mousemove', (e) => {
-        if(!itemSlider3isDown) return;
-        e.preventDefault();
-        const x = e.pageX - itemSlider3.offsetLeft;
-        const walk = (x - itemSliderstartX3) * 3; //scroll-fast
-        itemSlider3.scrollLeft = itemSliderscrollLeft3 - walk;
-      });
-    </script>
-  </body>
+                      <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  var token = localStorage.getItem("token");
+  if (token){
+    MainService.init();
+  }else{
+    window.location.replace("login.html");
+  }
+</script>
+
 </html>
