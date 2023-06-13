@@ -85,7 +85,7 @@ let itemService = {
           }
           html += `
                 <div class="col-md-6 col-lg-4 col-xl-3" data-toggle="modal" data-target="#exampleModalCenter" onclick="itemService.get(` + data[i].id + `)">
-                <div id="product-2" class="single-product">
+                <div id="product-2" class="single-product my-2">
                         <div class="part-1" id="itemImage` + itemNo + `">
                         <style>
                         #itemImage` + itemNo + `::before{
