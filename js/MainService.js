@@ -249,7 +249,7 @@ var MainService = {
                         <style>
                         #itemImage`+itemNo+`::before{
                             background: url("img/items/`+data[i].image+`") no-repeat center;
-                            background-size: cover;
+                            background-size: contain;
                             transition: all 0.3s;
                         }
                         </style>

@@ -23,14 +23,10 @@ a:hover {
     color: #444444; 
 }
 
-.single-product {
-    margin-bottom: 26px;
-}
 .single-product .part-1 {
     position: relative;
     height: 290px;
     max-height: 290px;
-    margin-bottom: 20px;
     overflow: hidden;
 }
 
@@ -45,7 +41,8 @@ a:hover {
 		transition: all 0.3s;
 }
 .single-product:hover .part-1::before {
-		transform: scale(1.2,1.2) rotate(5deg);
+    transform: scale(1.1,1.1) rotate(3deg);
+
 }
 
 
@@ -87,10 +84,11 @@ a:hover {
     transition: bottom 0.5s, opacity 0.5s;
 }
 
-.single-product:hover .part-1 ul {
-    bottom: 30px;
-    opacity: 1;
+.single-product:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 1);
+    
 }
+
 .single-product .part-1 ul li {
     display: inline-block;
     margin-right: 4px;
@@ -112,8 +110,15 @@ a:hover {
     color: #fe302f;
 }
 
+.single-product .part-2  {
+    background-color: #155E75;
+    padding: 10px;
+}
+
 .single-product .part-2 .product-title {
     font-size: 1rem;
+    background-color: #FBBF24;
+    padding: 5px;
 }
 
 .single-product .part-2 h4 {
@@ -138,6 +143,23 @@ a:hover {
     border: none !important;
     border-radius: 0% !important;
 }
+.btn-primary:hover {
+    filter: blur(1px);
+}
 .icon-btn{
     border-radius: 50% !important;
+}
+.modal-content{
+    background: #003D50;
+    box-shadow: inset 25px 25px 88px 5px rgba(0, 0, 0, 0.25);
+    color: #bbb;
+}
+.modal-content h3{
+    color: #fff;
+}
+.modal-content span{
+    color: #fff;
+}
+#modalText{
+    color: #fff;
 }

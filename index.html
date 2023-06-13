@@ -33,7 +33,7 @@
           <!-- Left links -->
           <ul class="nav justify-content-center">
             <li class="nav-item px-2">
-              <button class="btn btn-primary text-light"> <span class="icon-bank"></span>  Dashboard</button>
+              <button class="btn btn-primary text-light"> <span class="icon-bank"></span>Dashboard</button>
             </li>
             <li class="nav-item px-2">
               <button class="btn btn-primary text-light" onclick="location.href='items.html'"><span class="icon-navicon"></span>  My items</button>
@@ -42,8 +42,9 @@
           <!-- Right links -->
     
           <div class="d-flex align-items-center">
-            <button class="btn btn-primary text-light icon-btn" href="#" onclick="userService.logout()">
+            <button class="btn btn-primary text-light" href="#" onclick="userService.logout()">
               <span class="icon-exit_to_app"></span>
+              Logout
             </button>
           </div>
       </div>
@@ -78,7 +79,7 @@
       <div class="modal-body py-0">
 
         <div class="d-flex main-content" style="min-height: 450px;">
-          <div class="bg-image promo-img mr-3 w-100" id="dataImage" style=" background-size: cover; background-repeat: no-repeat; background-position: center; ">
+          <div class="bg-image promo-img mr-3 w-100" id="dataImage" style=" background-size: contain; background-repeat: no-repeat; background-position: center; ">
             <span class="discount" id="modalDate" datetime=""></span>
           </div>
           <div class="content-text p-4 px-5 align-item-stretch w-75">
