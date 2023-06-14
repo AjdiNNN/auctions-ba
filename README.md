@@ -22,6 +22,7 @@ In this release, the following features are available:
 		15. POST /login
 		16. POST /register
 		17. GET /user
+##### Authorization done by JWT token authorization
 #### **PHPUnit tests**
 **testRegisterUserEmail**: This test verifies the registration process by attempting to register a user with an already registered email address. It expects a response with a status code of 500 and the message "Email already registered."
 
@@ -33,7 +34,7 @@ In this release, the following features are available:
 
 **testLoginTrueUser**: This test verifies the successful login process by attempting to log in with a valid email address and password. It expects a response with a status code of 200 and a token in the response data.
 
-##### Authorization done by JWT token authorization
+
 
 ####CODING STANDARDS
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
