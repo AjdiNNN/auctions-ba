@@ -62,6 +62,7 @@ Data Access Object (DAO): The DAO pattern is employed to separate the data acces
 Repository: Although not explicitly defined in the provided code, the DAO classes can be considered as a form of repository pattern. They encapsulate the data access logic, providing a clean interface to interact with the data source.
 
 RESTful API: The project follows the principles of REST (Representational State Transfer) to design the API endpoints. It uses HTTP methods (POST, GET) to perform CRUD (Create, Read, Update, Delete) operations on user data. The endpoints are structured in a resource-oriented manner, providing a stateless interface to access and manipulate user-related information.
+
 ---
 > Ajdin Hukić, Amina Kodžaga 
 > 
