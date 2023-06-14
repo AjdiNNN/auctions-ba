@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  *
@@ -20,29 +18,29 @@ class Tag extends AbstractAnnotation
      *
      * @var string
      */
-    public $name = Generator::UNDEFINED;
+    public $name = UNDEFINED;
 
     /**
      * A short description for the tag. GFM syntax can be used for rich text representation.
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * Additional external documentation for this tag.
      *
      * @var ExternalDocumentation
      */
-    public $externalDocs = Generator::UNDEFINED;
+    public $externalDocs = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_required = ['name'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [
         'name' => 'string',
@@ -50,17 +48,16 @@ class Tag extends AbstractAnnotation
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         OpenApi::class,
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         ExternalDocumentation::class => 'externalDocs',
-        Attachable::class => ['attachables'],
     ];
 }

@@ -32,9 +32,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class NoWhitespaceBeforeCommaInArrayFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -51,24 +48,18 @@ final class NoWhitespaceBeforeCommaInArrayFixer extends AbstractFixer implements
                             ];
 
                         PHP,
-                    new VersionSpecification(70300),
+                    new VersionSpecification(7_03_00),
                     ['after_heredoc' => true]
                 ),
             ]
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound([T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
@@ -78,9 +69,6 @@ final class NoWhitespaceBeforeCommaInArrayFixer extends AbstractFixer implements
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([

@@ -13,7 +13,7 @@ use OpenApi\Annotations\Parameter;
 use OpenApi\Annotations\RequestBody;
 use OpenApi\Annotations\Response;
 use OpenApi\Context;
-use OpenApi\Generator;
+use OpenApi\Logger;
 
 /**
  * Split JsonContent into Schema and MediaType.
@@ -22,20 +22,18 @@ class MergeJsonContent
 {
     public function __invoke(Analysis $analysis)
     {
-        /** @var JsonContent[] $annotations */
         $annotations = $analysis->getAnnotationsOfType(JsonContent::class);
-
         foreach ($annotations as $jsonContent) {
             $parent = $jsonContent->_context->nested;
             if (!($parent instanceof Response) && !($parent instanceof RequestBody) && !($parent instanceof Parameter)) {
                 if ($parent) {
-                    $jsonContent->_context->logger->warning('Unexpected ' . $jsonContent->identity() . ' in ' . $parent->identity() . ' in ' . $parent->_context);
+                    Logger::notice('Unexpected '.$jsonContent->identity().' in '.$parent->identity().' in '.$parent->_context);
                 } else {
-                    $jsonContent->_context->logger->warning('Unexpected ' . $jsonContent->identity() . ' must be nested');
+                    Logger::notice('Unexpected '.$jsonContent->identity().' must be nested');
                 }
                 continue;
             }
-            if ($parent->content === Generator::UNDEFINED) {
+            if ($parent->content === UNDEFINED) {
                 $parent->content = [];
             }
             $parent->content['application/json'] = new MediaType([
@@ -47,8 +45,8 @@ class MergeJsonContent
             if (!$parent instanceof Parameter) {
                 $parent->content['application/json']->mediaType = 'application/json';
             }
-            $jsonContent->example = Generator::UNDEFINED;
-            $jsonContent->examples = Generator::UNDEFINED;
+            $jsonContent->example = UNDEFINED;
+            $jsonContent->examples = UNDEFINED;
 
             $index = array_search($jsonContent, $parent->_unmerged, true);
             if ($index !== false) {

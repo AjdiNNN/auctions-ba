@@ -5,9 +5,7 @@ namespace OpenApi\Tests\Fixtures;
 /**
  * @OA\Schema(
  *   schema="UsingVar",
- *   required={"name"},
- *   @OA\Attachable(),
- *   @OA\Attachable()
+ *   required={"name"}
  * )
  */
 class UsingVar

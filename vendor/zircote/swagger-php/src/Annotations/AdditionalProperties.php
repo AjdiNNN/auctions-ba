@@ -12,7 +12,7 @@ namespace OpenApi\Annotations;
 class AdditionalProperties extends Schema
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         Schema::class,
@@ -24,7 +24,7 @@ class AdditionalProperties extends Schema
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         Discriminator::class => 'discriminator',
@@ -33,6 +33,5 @@ class AdditionalProperties extends Schema
         ExternalDocumentation::class => 'externalDocs',
         Xml::class => 'xml',
         AdditionalProperties::class => 'additionalProperties',
-        Attachable::class => ['attachables'],
     ];
 }

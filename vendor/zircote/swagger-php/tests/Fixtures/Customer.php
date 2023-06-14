@@ -5,13 +5,11 @@
 namespace OpenApi\Tests\Fixtures;
 
 use Exception;
+use OpenApi\Logger;
+use OpenApi\Logger as OpenApiLogger;
 use OpenApi\Annotations as OA;
-use OpenApi\Generator;
-use OpenApi\Generator as OpenApiGenerator;
 
 /**
- * A customer.
- *
  * @OA\Info(title="Fixture for ClassPropertiesTest", version="test")
  * @OA\Schema()
  */
@@ -83,18 +81,12 @@ class Customer
     public $bestFriend;
 
     /**
-     * @OA\Property()
-     * @var Customer[]|null
-     */
-    public $endorsedFriends;
-
-    /**
      * for ContextTest
      */
     public function testResolvingFullyQualifiedNames()
     {
-        (new OpenApiGenerator())->getLogger();
-        (new Generator())->getLogger();
+        OpenApiLogger::getInstance();
+        Logger::getInstance();
         new OA\Contact([]);
         throw new Exception();
     }

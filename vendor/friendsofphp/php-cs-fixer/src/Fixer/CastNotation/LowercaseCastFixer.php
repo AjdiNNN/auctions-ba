@@ -24,9 +24,6 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class LowercaseCastFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -48,7 +45,7 @@ final class LowercaseCastFixer extends AbstractFixer
     $a = (UNset) $b;
     $a = (Binary) $b;
 ',
-                    new VersionSpecification(null, 70399)
+                    new VersionSpecification(null, 7_03_99)
                 ),
                 new VersionSpecificCodeSample(
                     '<?php
@@ -65,23 +62,17 @@ final class LowercaseCastFixer extends AbstractFixer
     $a = (UNset) $b;
     $a = (Binary) $b;
 ',
-                    new VersionSpecification(70400)
+                    new VersionSpecification(7_04_00)
                 ),
             ]
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound(Token::getCastTokenKinds());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {

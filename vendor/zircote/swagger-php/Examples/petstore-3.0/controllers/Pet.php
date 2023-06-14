@@ -16,11 +16,10 @@ namespace Petstore30\controllers;
 class Pet
 {
     /**
-     * Add a new pet to the store
-     * 
      * @OA\Post(
      *     path="/pet",
      *     tags={"pet"},
+     *     summary="Add a new pet to the store",
      *     operationId="addPet",
      *     @OA\Response(
      *         response=405,
@@ -37,11 +36,10 @@ class Pet
     }
 
     /**
-     * Update an existing pet
-     *
      * @OA\Put(
      *     path="/pet",
      *     tags={"pet"},
+     *     summary="Update an existing pet",
      *     operationId="updatePet",
      *     @OA\Response(
      *         response=400,
@@ -80,9 +78,12 @@ class Pet
      *         required=true,
      *         explode=true,
      *         @OA\Schema(
+     *             type="array",
      *             default="available",
-     *             type="string",
-     *             enum = {"available", "pending", "sold"},
+     *             @OA\Items(
+     *                 type="string",
+     *                 enum = {"available", "pending", "sold"},
+     *             )
      *         )
      *     ),
      *     @OA\Response(

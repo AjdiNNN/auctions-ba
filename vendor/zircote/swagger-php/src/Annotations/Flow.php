@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * Configuration details for a supported OAuth Flow
  * [OAuth Flow Object](https://swagger.io/specification/#oauthFlowObject).
@@ -22,7 +20,7 @@ class Flow extends AbstractAnnotation
      *
      * @var string
      */
-    public $authorizationUrl = Generator::UNDEFINED;
+    public $authorizationUrl = UNDEFINED;
 
     /**
      * The token URL to be used for this flow.
@@ -30,7 +28,7 @@ class Flow extends AbstractAnnotation
      *
      * @var string
      */
-    public $tokenUrl = Generator::UNDEFINED;
+    public $tokenUrl = UNDEFINED;
 
     /**
      * The URL to be used for obtaining refresh tokens.
@@ -38,32 +36,34 @@ class Flow extends AbstractAnnotation
      *
      * @var string
      */
-    public $refreshUrl = Generator::UNDEFINED;
+    public $refreshUrl = UNDEFINED;
 
     /**
      * Flow name. One of ['implicit', 'password', 'authorizationCode', 'clientCredentials'].
      *
      * @var string
      */
-    public $flow = Generator::UNDEFINED;
+    public $flow = UNDEFINED;
 
     /**
      * The available scopes for the OAuth2 security scheme. A map between the scope name and a short description for it.
+     *
+     * @var array
      */
-    public $scopes = Generator::UNDEFINED;
+    public $scopes = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_required = ['scopes', 'flow'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_blacklist = ['_context', '_unmerged'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [
         'flow' => ['implicit', 'password', 'authorizationCode', 'clientCredentials'],
@@ -73,25 +73,17 @@ class Flow extends AbstractAnnotation
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         SecurityScheme::class,
     ];
 
-    /**
-     * @inheritdoc
-     */
-    public static $_nested = [
-        Attachable::class => ['attachables'],
-    ];
-
-    /** @inheritdoc */
-    #[\ReturnTypeWillChange]
+    /** {@inheritdoc} */
     public function jsonSerialize()
     {
         if (is_array($this->scopes) && empty($this->scopes)) {
-            $this->scopes = new \stdClass();
+            $this->scopes = new \StdClass();
         }
 
         return parent::jsonSerialize();

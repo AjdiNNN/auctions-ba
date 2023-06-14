@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  */
@@ -18,17 +16,10 @@ class Property extends Schema
      *
      * @var string
      */
-    public $property = Generator::UNDEFINED;
+    public $property = UNDEFINED;
 
     /**
-     * Indicates the property is nullable.
-     *
-     * @var bool
-     */
-    public $nullable = Generator::UNDEFINED;
-
-    /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         AdditionalProperties::class,
@@ -40,7 +31,7 @@ class Property extends Schema
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         Discriminator::class => 'discriminator',
@@ -49,6 +40,5 @@ class Property extends Schema
         ExternalDocumentation::class => 'externalDocs',
         Xml::class => 'xml',
         AdditionalProperties::class => 'additionalProperties',
-        Attachable::class => ['attachables'],
     ];
 }

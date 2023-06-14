@@ -30,9 +30,6 @@ final class ReturnAssignmentFixer extends AbstractFixer
      */
     private $tokensAnalyzer;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -52,17 +49,11 @@ final class ReturnAssignmentFixer extends AbstractFixer
         return -15;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAllTokenKindsFound([T_FUNCTION, T_RETURN, T_VARIABLE]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $tokenCount = \count($tokens);
@@ -313,8 +304,7 @@ final class ReturnAssignmentFixer extends AbstractFixer
         $inserted = 0;
         $originalIndent = $tokens[$assignVarIndex - 1]->isWhitespace()
             ? $tokens[$assignVarIndex - 1]->getContent()
-            : null
-        ;
+            : null;
 
         // remove the return statement
         if ($tokens[$returnVarEndIndex]->equals(';')) { // do not remove PHP close tags
@@ -331,8 +321,7 @@ final class ReturnAssignmentFixer extends AbstractFixer
             $fistLinebreakPos = strrpos($content, "\n");
             $content = false === $fistLinebreakPos
                 ? ' '
-                : substr($content, $fistLinebreakPos)
-            ;
+                : substr($content, $fistLinebreakPos);
 
             $tokens[$returnIndex - 1] = new Token([T_WHITESPACE, $content]);
         }

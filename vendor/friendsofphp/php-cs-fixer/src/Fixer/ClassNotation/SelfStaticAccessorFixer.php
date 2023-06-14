@@ -24,14 +24,8 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 
 final class SelfStaticAccessorFixer extends AbstractFixer
 {
-    /**
-     * @var TokensAnalyzer
-     */
-    private $tokensAnalyzer;
+    private TokensAnalyzer $tokensAnalyzer;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -91,9 +85,6 @@ $a = new class() {
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAllTokenKindsFound([T_CLASS, T_STATIC]) && $tokens->isAnyTokenKindsFound([T_DOUBLE_COLON, T_NEW, T_INSTANCEOF]);
@@ -109,20 +100,15 @@ $a = new class() {
         return -10;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $this->tokensAnalyzer = new TokensAnalyzer($tokens);
-
         $classIndex = $tokens->getNextTokenOfKind(0, [[T_CLASS]]);
 
         while (null !== $classIndex) {
-            if (
-                $this->tokensAnalyzer->isAnonymousClass($classIndex)
-                || $tokens[$tokens->getPrevMeaningfulToken($classIndex)]->isGivenKind(T_FINAL)
-            ) {
+            $modifiers = $this->tokensAnalyzer->getClassyModifiers($classIndex);
+
+            if (isset($modifiers['final']) || $this->tokensAnalyzer->isAnonymousClass($classIndex)) {
                 $classIndex = $this->fixClass($tokens, $classIndex);
             }
 

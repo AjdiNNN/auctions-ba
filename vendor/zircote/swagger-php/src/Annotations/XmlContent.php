@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  * Shorthand for a xml response.
@@ -19,15 +17,15 @@ class XmlContent extends Schema
     /**
      * @var object
      */
-    public $examples = Generator::UNDEFINED;
+    public $examples = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         Discriminator::class => 'discriminator',
@@ -36,7 +34,5 @@ class XmlContent extends Schema
         ExternalDocumentation::class => 'externalDocs',
         Xml::class => 'xml',
         AdditionalProperties::class => 'additionalProperties',
-        Examples::class => ['examples', 'example'],
-        Attachable::class => ['attachables'],
     ];
 }

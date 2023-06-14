@@ -13,7 +13,7 @@ use OpenApi\Annotations\RequestBody;
 use OpenApi\Annotations\Response;
 use OpenApi\Annotations\XmlContent;
 use OpenApi\Context;
-use OpenApi\Generator;
+use OpenApi\Logger;
 
 /**
  * Split XmlContent into Schema and MediaType.
@@ -22,20 +22,18 @@ class MergeXmlContent
 {
     public function __invoke(Analysis $analysis)
     {
-        /** @var XmlContent[] $annotations */
         $annotations = $analysis->getAnnotationsOfType(XmlContent::class);
-
         foreach ($annotations as $xmlContent) {
             $parent = $xmlContent->_context->nested;
             if (!($parent instanceof Response) && !($parent instanceof RequestBody) && !($parent instanceof Parameter)) {
                 if ($parent) {
-                    $xmlContent->_context->logger->warning('Unexpected ' . $xmlContent->identity() . ' in ' . $parent->identity() . ' in ' . $parent->_context);
+                    Logger::notice('Unexpected '.$xmlContent->identity().' in '.$parent->identity().' in '.$parent->_context);
                 } else {
-                    $xmlContent->_context->logger->warning('Unexpected ' . $xmlContent->identity() . ' must be nested');
+                    Logger::notice('Unexpected '.$xmlContent->identity().' must be nested');
                 }
                 continue;
             }
-            if ($parent->content === Generator::UNDEFINED) {
+            if ($parent->content === UNDEFINED) {
                 $parent->content = [];
             }
             $parent->content['application/xml'] = new MediaType([
@@ -47,8 +45,8 @@ class MergeXmlContent
             if (!$parent instanceof Parameter) {
                 $parent->content['application/xml']->mediaType = 'application/xml';
             }
-            $xmlContent->example = Generator::UNDEFINED;
-            $xmlContent->examples = Generator::UNDEFINED;
+            $xmlContent->example = UNDEFINED;
+            $xmlContent->examples = UNDEFINED;
 
             $index = array_search($xmlContent, $parent->_unmerged, true);
             if ($index !== false) {

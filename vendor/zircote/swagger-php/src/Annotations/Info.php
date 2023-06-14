@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  * An "Info Object": https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#info-object
@@ -22,50 +20,50 @@ class Info extends AbstractAnnotation
      *
      * @var string
      */
-    public $title = Generator::UNDEFINED;
+    public $title = UNDEFINED;
 
     /**
      * A short description of the application. CommonMark syntax may be used for rich text representation.
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * A URL to the Terms of Service for the API. must be in the format of a url.
      *
      * @var string
      */
-    public $termsOfService = Generator::UNDEFINED;
+    public $termsOfService = UNDEFINED;
 
     /**
      * The contact information for the exposed API.
      *
      * @var Contact
      */
-    public $contact = Generator::UNDEFINED;
+    public $contact = UNDEFINED;
 
     /**
      * The license information for the exposed API.
      *
      * @var License
      */
-    public $license = Generator::UNDEFINED;
+    public $license = UNDEFINED;
 
     /**
      * The version of the OpenAPI document (which is distinct from the OpenAPI Specification version or the API implementation version).
      *
      * @var string
      */
-    public $version = Generator::UNDEFINED;
+    public $version = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_required = ['title', 'version'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [
         'title' => 'string',
@@ -75,16 +73,15 @@ class Info extends AbstractAnnotation
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         Contact::class => 'contact',
         License::class => 'license',
-        Attachable::class => ['attachables'],
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         OpenApi::class,

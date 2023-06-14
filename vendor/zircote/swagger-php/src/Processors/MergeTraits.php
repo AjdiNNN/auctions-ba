@@ -11,27 +11,20 @@ use OpenApi\Annotations\Property;
 use OpenApi\Annotations\Schema;
 use Traversable;
 
-/**
- * @deprecated
- */
 class MergeTraits
 {
     public function __invoke(Analysis $analysis)
     {
-        /** @var Schema[] $schemas */
         $schemas = $analysis->getAnnotationsOfType(Schema::class);
-
         foreach ($schemas as $schema) {
             if ($schema->_context->is('class')) {
                 $existing = [];
                 $traits = $analysis->getTraitsOfClass($schema->_context->fullyQualifiedName($schema->_context->class));
                 foreach ($traits as $trait) {
-                    if (is_iterable($trait['context']->annotations)) {
-                        foreach ($trait['context']->annotations as $annotation) {
-                            if ($annotation instanceof Property && !in_array($annotation->_context->property, $existing)) {
-                                $existing[] = $annotation->_context->property;
-                                $schema->merge([$annotation], true);
-                            }
+                    foreach ($trait['context']->annotations as $annotation) {
+                        if ($annotation instanceof Property && !in_array($annotation->_context->property, $existing)) {
+                            $existing[] = $annotation->_context->property;
+                            $schema->merge([$annotation], true);
                         }
                     }
 

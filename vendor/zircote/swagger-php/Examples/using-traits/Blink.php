@@ -3,7 +3,7 @@
 namespace UsingTraits;
 
 /**
- * @OA\Schema(title="Blink trait", schema="CustomName/Blink")
+ * @OA\Schema(title="Blink trait")
  */
 trait Blink {
 

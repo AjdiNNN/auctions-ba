@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  * Allows referencing an external resource for extended documentation.
@@ -21,17 +19,17 @@ class ExternalDocumentation extends AbstractAnnotation
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * The URL for the target documentation.
      *
      * @var string
      */
-    public $url = Generator::UNDEFINED;
+    public $url = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [
         'description' => 'string',
@@ -39,12 +37,12 @@ class ExternalDocumentation extends AbstractAnnotation
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_required = ['url'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         OpenApi::class,
@@ -64,12 +62,5 @@ class ExternalDocumentation extends AbstractAnnotation
         Items::class,
         JsonContent::class,
         XmlContent::class,
-    ];
-
-    /**
-     * @inheritdoc
-     */
-    public static $_nested = [
-        Attachable::class => ['attachables'],
     ];
 }

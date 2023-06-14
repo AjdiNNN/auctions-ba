@@ -7,13 +7,14 @@
 namespace Petstore30;
 
 /**
- * Tag
+ * Class Tag
  *
  * @package Petstore30
  *
  * @author  Donii Sergii <doniysa@gmail.com>
  *
  * @OA\Schema(
+ *     description="Tag",
  *     title="Tag",
  *     @OA\Xml(
  *         name="Tag"

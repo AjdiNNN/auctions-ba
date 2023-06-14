@@ -37,10 +37,10 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
      * @var array<string, int>
      */
     private array $versionSpecificTypes = [
-        'void' => 70100,
-        'iterable' => 70100,
-        'object' => 70200,
-        'mixed' => 80000,
+        'void' => 7_01_00,
+        'iterable' => 7_01_00,
+        'object' => 7_02_00,
+        'mixed' => 8_00_00,
     ];
 
     /**
@@ -58,9 +58,6 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
      */
     private static array $syntaxValidationCache = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
@@ -68,9 +65,6 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
 
     abstract protected function isSkippedType(string $type): bool;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -186,7 +180,7 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends AbstractFixer implem
             return null;
         }
 
-        if ('static' === $commonType && (!$isReturnType || \PHP_VERSION_ID < 80000)) {
+        if ('static' === $commonType && (!$isReturnType || \PHP_VERSION_ID < 8_00_00)) {
             $commonType = 'self';
         }
 

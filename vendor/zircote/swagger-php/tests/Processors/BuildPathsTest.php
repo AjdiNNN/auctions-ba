@@ -11,21 +11,21 @@ use OpenApi\Annotations\Get;
 use OpenApi\Annotations\OpenApi;
 use OpenApi\Annotations\PathItem;
 use OpenApi\Annotations\Post;
-use OpenApi\Generator;
 use OpenApi\Processors\BuildPaths;
 use OpenApi\Processors\MergeIntoOpenApi;
 use OpenApi\Tests\OpenApiTestCase;
+use const OpenApi\UNDEFINED;
 
 class BuildPathsTest extends OpenApiTestCase
 {
     public function testMergePathsWithSamePath()
     {
-        $openapi = new OpenApi(['_context' => $this->getContext()]);
+        $openapi = new OpenApi([]);
         $openapi->paths = [
-            new PathItem(['path' => '/comments', '_context' => $this->getContext()]),
-            new PathItem(['path' => '/comments', '_context' => $this->getContext()]),
+            new PathItem(['path' => '/comments']),
+            new PathItem(['path' => '/comments']),
         ];
-        $analysis = new Analysis([$openapi], $this->getContext());
+        $analysis = new Analysis([$openapi]);
         $analysis->openapi = $openapi;
         $analysis->process(new BuildPaths());
         $this->assertCount(1, $openapi->paths);
@@ -34,14 +34,13 @@ class BuildPathsTest extends OpenApiTestCase
 
     public function testMergeOperationsWithSamePath()
     {
-        $openapi = new OpenApi(['_context' => $this->getContext()]);
+        $openapi = new OpenApi([]);
         $analysis = new Analysis(
             [
-                $openapi,
-                new Get(['path' => '/comments', '_context' => $this->getContext()]),
-                new Post(['path' => '/comments', '_context' => $this->getContext()]),
-            ],
-            $this->getContext()
+            $openapi,
+            new Get(['path' => '/comments']),
+            new Post(['path' => '/comments']),
+            ]
         );
         $analysis->process(new MergeIntoOpenApi());
         $analysis->process(new BuildPaths());
@@ -51,6 +50,6 @@ class BuildPathsTest extends OpenApiTestCase
         $this->assertInstanceOf(PathItem::class, $path);
         $this->assertInstanceOf(Get::class, $path->get);
         $this->assertInstanceOf(Post::class, $path->post);
-        $this->assertSame(Generator::UNDEFINED, $path->put);
+        $this->assertSame(UNDEFINED, $path->put);
     }
 }

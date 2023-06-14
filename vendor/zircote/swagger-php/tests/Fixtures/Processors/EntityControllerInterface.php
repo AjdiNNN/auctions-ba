@@ -9,7 +9,7 @@ interface EntityControllerInterface
 {
 
     /**
-     * @OA\Post(
+     * @OA\POST(
      *   tags={"EntityController"},
      *   path="entity/{id}",
      *   @OA\Response(

@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  * A "Link Object" https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#link-object
@@ -19,19 +17,20 @@ use OpenApi\Generator;
  */
 class Link extends AbstractAnnotation
 {
+
     /**
      * $ref See https://swagger.io/docs/specification/using-ref/.
      *
      * @var string
      */
-    public $ref = Generator::UNDEFINED;
+    public $ref = UNDEFINED;
 
     /**
      * The key into MediaType->links array.
      *
      * @var string
      */
-    public $link = Generator::UNDEFINED;
+    public $link = UNDEFINED;
 
     /**
      * A relative or absolute reference to an OA operation.
@@ -40,7 +39,7 @@ class Link extends AbstractAnnotation
      *
      * @var string
      */
-    public $operationRef = Generator::UNDEFINED;
+    public $operationRef = UNDEFINED;
 
     /**
      * The name of an existing, resolvable OA operation, as defined with a unique operationId.
@@ -48,19 +47,19 @@ class Link extends AbstractAnnotation
      *
      * @var string
      */
-    public $operationId = Generator::UNDEFINED;
+    public $operationId = UNDEFINED;
 
     /**
      * A map representing parameters to pass to an operation as specified with operationId or identified via operationRef.
      * The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked operation.
      * The parameter name can be qualified using the parameter location [{in}.]{name} for operations that use the same parameter name in different locations (e.g. path.id).
      */
-    public $parameters = Generator::UNDEFINED;
+    public $parameters = UNDEFINED;
 
     /**
      * A literal value or {expression} to use as a request body when calling the target operation.
      */
-    public $requestBody = Generator::UNDEFINED;
+    public $requestBody = UNDEFINED;
 
     /**
      * A description of the link.
@@ -68,25 +67,24 @@ class Link extends AbstractAnnotation
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * A server object to be used by the target operation.
      *
      * @var Server
      */
-    public $server = Generator::UNDEFINED;
+    public $server = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         Server::class => 'server',
-        Attachable::class => ['attachables'],
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         Components::class,

@@ -6,16 +6,18 @@
 
 namespace OpenApi\Annotations;
 
+use Exception;
+use JsonSerializable;
 use OpenApi\Analyser;
 use OpenApi\Context;
-use OpenApi\Generator;
-use OpenApi\Util;
+use OpenApi\Logger;
+use stdClass;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * The openapi annotation base class.
  */
-abstract class AbstractAnnotation implements \JsonSerializable
+abstract class AbstractAnnotation implements JsonSerializable
 {
     /**
      * While the OpenAPI Specification tries to accommodate most use cases, additional data can be added to extend the specification at certain points.
@@ -24,13 +26,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @var array
      */
-    public $x = Generator::UNDEFINED;
-
-    /**
-     * Arbitrary attachables for this annotation.
-     * These will be ignored but can be used for custom processing.
-     */
-    public $attachables = Generator::UNDEFINED;
+    public $x = UNDEFINED;
 
     /**
      * @var Context
@@ -87,9 +83,12 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @var array
      */
-    public static $_blacklist = ['_context', '_unmerged', 'attachables'];
+    public static $_blacklist = ['_context', '_unmerged'];
 
-    public function __construct(array $properties)
+    /**
+     * @param array $properties
+     */
+    public function __construct($properties)
     {
         if (isset($properties['_context'])) {
             $this->_context = $properties['_context'];
@@ -122,14 +121,14 @@ abstract class AbstractAnnotation implements \JsonSerializable
                     if (is_object($annotation) && $annotation instanceof AbstractAnnotation) {
                         $annotations[] = $annotation;
                     } else {
-                        $this->_context->logger->warning('Unexpected field in ' . $this->identity() . ' in ' . $this->_context);
+                        Logger::notice('Unexpected field in '.$this->identity().' in '.$this->_context);
                     }
                 }
                 $this->merge($annotations);
             } elseif (is_object($value)) {
                 $this->merge([$value]);
             } else {
-                $this->_context->logger->warning('Unexpected parameter in ' . $this->identity());
+                Logger::notice('Unexpected parameter in '.$this->identity());
             }
         }
     }
@@ -137,7 +136,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
     public function __get($property)
     {
         $properties = get_object_vars($this);
-        $this->_context->logger->warning('Property "' . $property . '" doesn\'t exist in a ' . $this->identity() . ', existing properties: "' . implode('", "', array_keys($properties)) . '" in ' . $this->_context);
+        Logger::notice('Property "'.$property.'" doesn\'t exist in a '.$this->identity().', existing properties: "'.implode('", "', array_keys($properties)).'" in '.$this->_context);
     }
 
     public function __set($property, $value)
@@ -146,7 +145,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
         foreach (static::$_blacklist as $_property) {
             unset($fields[$_property]);
         }
-        $this->_context->logger->warning('Unexpected field "' . $property . '" for ' . $this->identity() . ', expecting "' . implode('", "', array_keys($fields)) . '" in ' . $this->_context);
+        Logger::notice('Unexpected field "'.$property.'" for '.$this->identity().', expecting "'.implode('", "', array_keys($fields)).'" in '.$this->_context);
         $this->$property = $value;
     }
 
@@ -160,7 +159,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @return AbstractAnnotation[] The unmerged annotations
      */
-    public function merge(array $annotations, bool $ignore = false): array
+    public function merge($annotations, $ignore = false)
     {
         $unmerged = [];
         $nestedContext = new Context(['nested' => $this], $this->_context);
@@ -171,12 +170,12 @@ abstract class AbstractAnnotation implements \JsonSerializable
                 $property = $details->value;
                 if (is_array($property)) {
                     $property = $property[0];
-                    if ($this->$property === Generator::UNDEFINED) {
+                    if ($this->$property === UNDEFINED) {
                         $this->$property = [];
                     }
                     $this->$property[] = $this->nested($annotation, $nestedContext);
                     $mapped = true;
-                } elseif ($this->$property === Generator::UNDEFINED) {
+                } elseif ($this->$property === UNDEFINED) {
                     // ignore duplicate nested if only one expected
                     $this->$property = $this->nested($annotation, $nestedContext);
                     $mapped = true;
@@ -201,7 +200,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @param object $object
      */
-    public function mergeProperties($object): void
+    public function mergeProperties($object)
     {
         $defaultValues = get_class_vars(get_class($this));
         $currentValues = get_object_vars($this);
@@ -227,30 +226,34 @@ abstract class AbstractAnnotation implements \JsonSerializable
                 if (is_object($this->$property) && $this->{$property} instanceof AbstractAnnotation) {
                     $context1 = $this->$property->_context;
                 }
-                $this->_context->logger->error('Multiple definitions for ' . $identity . '->' . $property . "\n     Using: " . $context1 . "\n  Skipping: " . $context2);
+                Logger::warning('Multiple definitions for '.$identity.'->'.$property."\n     Using: ".$context1."\n  Skipping: ".$context2);
             }
         }
     }
 
     /**
      * Generate the documentation in YAML format.
+     *
+     * @return string
      */
-    public function toYaml($flags = null): string
+    public function toYaml($flags = null)
     {
         if ($flags === null) {
             $flags = Yaml::DUMP_OBJECT_AS_MAP ^ Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE;
         }
 
-        return Yaml::dump(json_decode($this->toJson(JSON_INVALID_UTF8_IGNORE)), 10, 2, $flags);
+        return Yaml::dump(json_decode($this->toJson(0)), 10, 2, $flags);
     }
 
     /**
      * Generate the documentation in YAML format.
+     *
+     * @return string
      */
-    public function toJson($flags = null): string
+    public function toJson($flags = null)
     {
         if ($flags === null) {
-            $flags = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_IGNORE;
+            $flags = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
         }
 
         return json_encode($this, $flags);
@@ -260,7 +263,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
     {
         $properties = [];
         foreach (get_object_vars($this) as $property => $value) {
-            if ($value !== Generator::UNDEFINED) {
+            if ($value !== UNDEFINED) {
                 $properties[$property] = $value;
             }
         }
@@ -270,17 +273,14 @@ abstract class AbstractAnnotation implements \JsonSerializable
 
     /**
      * Customize the way json_encode() renders the annotations.
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        $data = new \stdClass();
+        $data = new stdClass();
 
         // Strip undefined values.
         foreach (get_object_vars($this) as $property => $value) {
-            if ($value !== Generator::UNDEFINED) {
+            if ($value !== UNDEFINED) {
                 $data->$property = $value;
             }
         }
@@ -293,7 +293,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
         // Correct empty array to empty objects.
         foreach (static::$_types as $property => $type) {
             if ($type === 'object' && is_array($data->$property) && empty($data->$property)) {
-                $data->$property = new \stdClass();
+                $data->$property = new stdClass;
             }
         }
 
@@ -301,7 +301,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
         unset($data->x);
         if (is_array($this->x)) {
             foreach ($this->x as $property => $value) {
-                $prefixed = 'x-' . $property;
+                $prefixed = 'x-'.$property;
                 $data->$prefixed = $value;
             }
         }
@@ -312,18 +312,18 @@ abstract class AbstractAnnotation implements \JsonSerializable
                 continue;
             }
             $property = $nested[0];
-            if ($this->$property === Generator::UNDEFINED) {
+            if ($this->$property === UNDEFINED) {
                 continue;
             }
             $keyField = $nested[1];
-            $object = new \stdClass();
+            $object = new stdClass();
             foreach ($this->$property as $key => $item) {
                 if (is_numeric($key) === false && is_array($item)) {
                     $object->$key = $item;
                 } else {
                     $key = $item->$keyField;
-                    if ($key !== Generator::UNDEFINED && empty($object->$key)) {
-                        if ($item instanceof \JsonSerializable) {
+                    if ($key !== UNDEFINED && empty($object->$key)) {
+                        if ($item instanceof JsonSerializable) {
                             $object->$key = $item->jsonSerialize();
                         } else {
                             $object->$key = $item;
@@ -349,8 +349,12 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @param array $parents the path of annotations above this annotation in the tree
      * @param array $skip    (prevent stack overflow, when traversing an infinite dependency graph)
+     *
+     * @throws Exception
+     *
+     * @return bool
      */
-    public function validate(array $parents = [], array $skip = [], string $ref = ''): bool
+    public function validate($parents = [], $skip = [], $ref = '')
     {
         if (in_array($this, $skip, true)) {
             return true;
@@ -360,7 +364,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
         // Report orphaned annotations
         foreach ($this->_unmerged as $annotation) {
             if (!is_object($annotation)) {
-                $this->_context->logger->warning('Unexpected type: "' . gettype($annotation) . '" in ' . $this->identity() . '->_unmerged, expecting a Annotation object');
+                Logger::notice('Unexpected type: "'.gettype($annotation).'" in '.$this->identity().'->_unmerged, expecting a Annotation object');
                 break;
             }
 
@@ -368,16 +372,16 @@ abstract class AbstractAnnotation implements \JsonSerializable
             if ($details = static::matchNested($class)) {
                 $property = $details->value;
                 if (is_array($property)) {
-                    $this->_context->logger->warning('Only one ' . Util::shorten(get_class($annotation)) . '() allowed for ' . $this->identity() . ' multiple found, skipped: ' . $annotation->_context);
+                    Logger::notice('Only one '.Logger::shorten(get_class($annotation)).'() allowed for '.$this->identity().' multiple found, skipped: '.$annotation->_context);
                 } else {
-                    $this->_context->logger->warning('Only one ' . Util::shorten(get_class($annotation)) . '() allowed for ' . $this->identity() . " multiple found in:\n    Using: " . $this->$property->_context . "\n  Skipped: " . $annotation->_context);
+                    Logger::notice('Only one '.Logger::shorten(get_class($annotation)).'() allowed for '.$this->identity()." multiple found in:\n    Using: ".$this->$property->_context."\n  Skipped: ".$annotation->_context);
                 }
             } elseif ($annotation instanceof AbstractAnnotation) {
-                $message = 'Unexpected ' . $annotation->identity();
+                $message = 'Unexpected '.$annotation->identity();
                 if ($class::$_parents) {
-                    $message .= ', expected to be inside ' . implode(', ', Util::shorten($class::$_parents));
+                    $message .= ', expected to be inside '.implode(', ', Logger::shorten($class::$_parents));
                 }
-                $this->_context->logger->warning($message . ' in ' . $annotation->_context);
+                Logger::notice($message.' in '.$annotation->_context);
             }
             $valid = false;
         }
@@ -388,52 +392,52 @@ abstract class AbstractAnnotation implements \JsonSerializable
                 continue;
             }
             $property = $nested[0];
-            if ($this->$property === Generator::UNDEFINED) {
+            if ($this->$property === UNDEFINED) {
                 continue;
             }
             $keys = [];
             $keyField = $nested[1];
             foreach ($this->$property as $key => $item) {
                 if (is_array($item) && is_numeric($key) === false) {
-                    $this->_context->logger->warning($this->identity() . '->' . $property . ' is an object literal, use nested ' . Util::shorten($annotationClass) . '() annotation(s) in ' . $this->_context);
+                    Logger::notice($this->identity().'->'.$property.' is an object literal, use nested '.Logger::shorten($annotationClass).'() annotation(s) in '.$this->_context);
                     $keys[$key] = $item;
-                } elseif ($item->$keyField === Generator::UNDEFINED) {
-                    $this->_context->logger->error($item->identity() . ' is missing key-field: "' . $keyField . '" in ' . $item->_context);
+                } elseif ($item->$keyField === UNDEFINED) {
+                    Logger::warning($item->identity().' is missing key-field: "'.$keyField.'" in '.$item->_context);
                 } elseif (isset($keys[$item->$keyField])) {
-                    $this->_context->logger->error('Multiple ' . $item->_identity([]) . ' with the same ' . $keyField . '="' . $item->$keyField . "\":\n  " . $item->_context . "\n  " . $keys[$item->$keyField]->_context);
+                    Logger::warning('Multiple '.$item->_identity([]).' with the same '.$keyField.'="'.$item->$keyField."\":\n  ".$item->_context."\n  ".$keys[$item->$keyField]->_context);
                 } else {
                     $keys[$item->$keyField] = $item;
                 }
             }
         }
-        if (property_exists($this, 'ref') && $this->ref !== Generator::UNDEFINED && $this->ref !== null) {
+        if (property_exists($this, 'ref') && $this->ref !== UNDEFINED) {
             if (substr($this->ref, 0, 2) === '#/' && count($parents) > 0 && $parents[0] instanceof OpenApi) {
                 // Internal reference
                 try {
                     $parents[0]->ref($this->ref);
-                } catch (\Exception $e) {
-                    $this->_context->logger->warning($e->getMessage() . ' for ' . $this->identity() . ' in ' . $this->_context, ['exception' => $e]);
+                } catch (Exception $exception) {
+                    Logger::notice($exception->getMessage().' for '.$this->identity().' in '.$this->_context);
                 }
             }
         } else {
             // Report missing required fields (when not a $ref)
             foreach (static::$_required as $property) {
-                if ($this->$property === Generator::UNDEFINED) {
-                    $message = 'Missing required field "' . $property . '" for ' . $this->identity() . ' in ' . $this->_context;
+                if ($this->$property === UNDEFINED) {
+                    $message = 'Missing required field "'.$property.'" for '.$this->identity().' in '.$this->_context;
                     foreach (static::$_nested as $class => $nested) {
                         $nestedProperty = is_array($nested) ? $nested[0] : $nested;
                         if ($property === $nestedProperty) {
                             if ($this instanceof OpenApi) {
-                                $message = 'Required ' . Util::shorten($class) . '() not found';
+                                $message = 'Required '.Logger::shorten($class).'() not found';
                             } elseif (is_array($nested)) {
-                                $message = $this->identity() . ' requires at least one ' . Util::shorten($class) . '() in ' . $this->_context;
+                                $message = $this->identity().' requires at least one '.Logger::shorten($class).'() in '.$this->_context;
                             } else {
-                                $message = $this->identity() . ' requires a ' . Util::shorten($class) . '() in ' . $this->_context;
+                                $message = $this->identity().' requires a '.Logger::shorten($class).'() in '.$this->_context;
                             }
                             break;
                         }
                     }
-                    $this->_context->logger->warning($message);
+                    Logger::notice($message);
                 }
             }
         }
@@ -441,20 +445,20 @@ abstract class AbstractAnnotation implements \JsonSerializable
         // Report invalid types
         foreach (static::$_types as $property => $type) {
             $value = $this->$property;
-            if ($value === Generator::UNDEFINED || $value === null) {
+            if ($value === UNDEFINED || $value === null) {
                 continue;
             }
             if (is_string($type)) {
                 if ($this->validateType($type, $value) === false) {
                     $valid = false;
-                    $this->_context->logger->warning($this->identity() . '->' . $property . ' is a "' . gettype($value) . '", expecting a "' . $type . '" in ' . $this->_context);
+                    Logger::notice($this->identity().'->'.$property.' is a "'.gettype($value).'", expecting a "'.$type.'" in '.$this->_context);
                 }
             } elseif (is_array($type)) { // enum?
                 if (in_array($value, $type) === false) {
-                    $this->_context->logger->warning($this->identity() . '->' . $property . ' "' . $value . '" is invalid, expecting "' . implode('", "', $type) . '" in ' . $this->_context);
+                    Logger::notice($this->identity().'->'.$property.' "'.$value.'" is invalid, expecting "'.implode('", "', $type).'" in '.$this->_context);
                 }
             } else {
-                throw new \Exception('Invalid ' . get_class($this) . '::$_types[' . $property . ']');
+                throw new Exception('Invalid '.get_class($this).'::$_types['.$property.']');
             }
         }
         $parents[] = $this;
@@ -467,9 +471,11 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @param array|object $fields
      * @param array        $parents the path of annotations above this annotation in the tree
-     * @param array        $skip    List of objects already validated
+     * @param array [      $skip]   Array with objects which are already validated
+     *
+     * @return bool
      */
-    private static function _validate($fields, array $parents, array $skip, string $baseRef): bool
+    private static function _validate($fields, $parents, $skip, $baseRef)
     {
         $valid = true;
         $blacklist = [];
@@ -485,7 +491,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
             if ($value === null || is_scalar($value) || in_array($field, $blacklist)) {
                 continue;
             }
-            $ref = $baseRef !== '' ? $baseRef . '/' . urlencode((string) $field) : urlencode((string) $field);
+            $ref = $baseRef !== '' ? $baseRef.'/'.urlencode((string) $field) : urlencode((string) $field);
             if (is_object($value)) {
                 if (method_exists($value, 'validate')) {
                     if (!$value->validate($parents, $skip, $ref)) {
@@ -505,35 +511,12 @@ abstract class AbstractAnnotation implements \JsonSerializable
     /**
      * Return a identity for easy debugging.
      * Example: "@OA\Get(path="/pets")".
+     *
+     * @return string
      */
-    public function identity(): string
+    public function identity()
     {
-        $class = get_class($this);
-        $properties = [];
-        foreach (static::$_parents as $parent) {
-            foreach ($parent::$_nested as $annotationClass => $entry) {
-                if ($annotationClass === $class && is_array($entry) && $this->{$entry[1]} !== Generator::UNDEFINED) {
-                    $properties[] = $entry[1];
-                    break 2;
-                }
-            }
-        }
-
-        return $this->_identity($properties);
-    }
-
-    /**
-     * An annotation is a root if it is the top-level / outermost annotation in a PHP docblock.
-     */
-    public function isRoot(): bool
-    {
-        if (!$this->_context) {
-            return true;
-        }
-
-        $count = count($this->_context->annotations);
-
-        return $count && $this->_context->annotations[$count - 1] === $this;
+        return $this->_identity([]);
     }
 
     /**
@@ -543,7 +526,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @return null|object key/value object or `null`
      */
-    public static function matchNested(string $class)
+    public static function matchNested($class)
     {
         if (array_key_exists($class, static::$_nested)) {
             return (object) ['key' => $class, 'value' => static::$_nested[$class]];
@@ -562,18 +545,22 @@ abstract class AbstractAnnotation implements \JsonSerializable
 
     /**
      * Helper for generating the identity().
+     *
+     * @param array $properties
+     *
+     * @return string
      */
-    protected function _identity(array $properties): string
+    protected function _identity($properties)
     {
         $fields = [];
         foreach ($properties as $property) {
             $value = $this->$property;
-            if ($value !== null && $value !== Generator::UNDEFINED) {
-                $fields[] = $property . '=' . (is_string($value) ? '"' . $value . '"' : $value);
+            if ($value !== null && $value !== UNDEFINED) {
+                $fields[] = $property.'='.(is_string($value) ? '"'.$value.'"' : $value);
             }
         }
 
-        return Util::shorten(get_class($this)) . '(' . implode(',', $fields) . ')';
+        return Logger::shorten(get_class($this)).'('.implode(',', $fields).')';
     }
 
     /**
@@ -581,8 +568,10 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @param string $type  The annotations property type
      * @param mixed  $value The property value
+     *
+     * @throws \Exception
      */
-    private function validateType(string $type, $value): bool
+    private function validateType($type, $value): bool
     {
         if (substr($type, 0, 1) === '[' && substr($type, -1) === ']') { // Array of a specified type?
             if ($this->validateType('array', $value) === false) {
@@ -610,8 +599,10 @@ abstract class AbstractAnnotation implements \JsonSerializable
      *
      * @param string $type  The property type
      * @param mixed  $value The value to validate
+     *
+     * @throws \Exception
      */
-    private function validateDefaultTypes(string $type, $value): bool
+    private function validateDefaultTypes($type, $value): bool
     {
         switch ($type) {
             case 'string':
@@ -629,7 +620,7 @@ abstract class AbstractAnnotation implements \JsonSerializable
             case 'scheme':
                 return in_array($value, ['http', 'https', 'ws', 'wss'], true);
             default:
-                throw new \Exception('Invalid type "' . $type . '"');
+                throw new Exception('Invalid type "'.$type.'"');
         }
     }
 
@@ -657,10 +648,11 @@ abstract class AbstractAnnotation implements \JsonSerializable
      * Wrap the context with a reference to the annotation it is nested in.
      *
      * @param AbstractAnnotation $annotation
+     * @param Context            $nestedContext
      *
      * @return AbstractAnnotation
      */
-    private function nested($annotation, Context $nestedContext)
+    private function nested($annotation, $nestedContext)
     {
         if (property_exists($annotation, '_context') && $annotation->_context === $this->_context) {
             $annotation->_context = $nestedContext;

@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  * A "Response Object": https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#requestBodyObject
@@ -17,14 +15,14 @@ use OpenApi\Generator;
  */
 class RequestBody extends AbstractAnnotation
 {
-    public $ref = Generator::UNDEFINED;
+    public $ref = UNDEFINED;
 
     /**
      * Request body model name.
      *
      * @var string
      */
-    public $request = Generator::UNDEFINED;
+    public $request = UNDEFINED;
 
     /**
      * A brief description of the parameter.
@@ -33,7 +31,7 @@ class RequestBody extends AbstractAnnotation
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * Determines whether this parameter is mandatory.
@@ -42,7 +40,7 @@ class RequestBody extends AbstractAnnotation
      *
      * @var bool
      */
-    public $required = Generator::UNDEFINED;
+    public $required = UNDEFINED;
 
     /**
      * The content of the request body.
@@ -51,10 +49,10 @@ class RequestBody extends AbstractAnnotation
      *
      * @var MediaType[]
      */
-    public $content = Generator::UNDEFINED;
+    public $content = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [
         'description' => 'string',
@@ -76,10 +74,9 @@ class RequestBody extends AbstractAnnotation
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         MediaType::class => ['content', 'mediaType'],
-        Attachable::class => ['attachables'],
     ];
 }

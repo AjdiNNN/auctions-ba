@@ -45,7 +45,6 @@ class OperationTest extends OpenApiTestCase
         // test with Get implementation...
         $operation = new OA\Get([
             'security' => $security,
-            '_context' => $this->getContext(),
         ]);
         $flags = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
         $json = $operation->toJson($flags);

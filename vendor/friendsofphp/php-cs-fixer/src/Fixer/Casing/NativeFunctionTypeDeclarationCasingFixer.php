@@ -72,27 +72,24 @@ final class NativeFunctionTypeDeclarationCasingFixer extends AbstractFixer
             'void' => true,
         ];
 
-        if (\PHP_VERSION_ID >= 80000) {
+        if (\PHP_VERSION_ID >= 8_00_00) {
             $this->hints['false'] = true;
             $this->hints['mixed'] = true;
             $this->hints['null'] = true;
             $this->hints['static'] = true;
         }
 
-        if (\PHP_VERSION_ID >= 80100) {
+        if (\PHP_VERSION_ID >= 8_01_00) {
             $this->hints['never'] = true;
         }
 
-        if (\PHP_VERSION_ID >= 80200) {
+        if (\PHP_VERSION_ID >= 8_02_00) {
             $this->hints['true'] = true;
         }
 
         $this->functionsAnalyzer = new FunctionsAnalyzer();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -107,27 +104,21 @@ final class NativeFunctionTypeDeclarationCasingFixer extends AbstractFixer
                 ),
                 new VersionSpecificCodeSample(
                     "<?php\nfunction Foo(Object \$a)\n{\n    return 'hi!';\n}\n",
-                    new VersionSpecification(70200)
+                    new VersionSpecification(7_02_00)
                 ),
             ]
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
-        return $tokens->isAllTokenKindsFound([T_FUNCTION, T_STRING]);
+        return $tokens->isAnyTokenKindsFound([T_FUNCTION, T_FN]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
-            if ($tokens[$index]->isGivenKind(T_FUNCTION)) {
+            if ($tokens[$index]->isGivenKind([T_FUNCTION, T_FN])) {
                 $this->fixFunctionReturnType($tokens, $index);
                 $this->fixFunctionArgumentTypes($tokens, $index);
             }

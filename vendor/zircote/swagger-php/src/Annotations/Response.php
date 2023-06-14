@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  * A "Response Object": https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#response-object
@@ -21,14 +19,14 @@ class Response extends AbstractAnnotation
      *
      * @var string
      */
-    public $ref = Generator::UNDEFINED;
+    public $ref = UNDEFINED;
 
     /**
      * The key into Operations->responses array.
      *
      * @var string a HTTP Status Code or "default"
      */
-    public $response = Generator::UNDEFINED;
+    public $response = UNDEFINED;
 
     /**
      * A short description of the response.
@@ -36,7 +34,7 @@ class Response extends AbstractAnnotation
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * Maps a header name to its definition.
@@ -45,7 +43,7 @@ class Response extends AbstractAnnotation
      *
      * @var Header[]
      */
-    public $headers = Generator::UNDEFINED;
+    public $headers = UNDEFINED;
 
     /**
      * A map containing descriptions of potential response payloads.
@@ -54,7 +52,7 @@ class Response extends AbstractAnnotation
      *
      * @var MediaType[]
      */
-    public $content = Generator::UNDEFINED;
+    public $content = UNDEFINED;
 
     /**
      * A map of operations links that can be followed from the response.
@@ -62,32 +60,31 @@ class Response extends AbstractAnnotation
      *
      * @var array
      */
-    public $links = Generator::UNDEFINED;
+    public $links = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_required = ['description'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [
         'description' => 'string',
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         MediaType::class => ['content', 'mediaType'],
         Header::class => ['headers', 'header'],
         Link::class => ['links', 'link'],
-        Attachable::class => ['attachables'],
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         Components::class,

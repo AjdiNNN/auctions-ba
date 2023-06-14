@@ -25,9 +25,12 @@ class Util
      * and conform specifically to what is expected by functions like `exclude()` and `notPath()`.
      * In particular, leading and trailing slashes are removed.
      *
+     * @param string       $fullPath
      * @param array|string $basePaths
+     *
+     * @return string
      */
-    public static function getRelativePath(string $fullPath, $basePaths): string
+    public static function getRelativePath($fullPath, $basePaths)
     {
         $relativePath = null;
         if (is_string($basePaths)) { // just a single path, not an array of possible paths
@@ -46,8 +49,13 @@ class Util
 
     /**
      * Removes a prefix from the start of a string if it exists, or null otherwise.
+     *
+     * @param string $str
+     * @param string $prefix
+     *
+     * @return null|string
      */
-    private static function removePrefix(string $str, string $prefix): ?string
+    private static function removePrefix($str, $prefix)
     {
         if (substr($str, 0, strlen($prefix)) == $prefix) {
             return substr($str, strlen($prefix));
@@ -65,11 +73,10 @@ class Util
      *
      * @throws InvalidArgumentException
      */
-    public static function finder($directory, $exclude = null, $pattern = null): Finder
+    public static function finder($directory, $exclude = null, $pattern = null)
     {
         if ($directory instanceof Finder) {
-            // Make sure that the provided Finder only finds files and follows symbolic links.
-            return $directory->files()->followLinks();
+            return $directory;
         } else {
             $finder = new Finder();
             $finder->sortByName();
@@ -94,7 +101,7 @@ class Util
                 }
             }
         } else {
-            throw new InvalidArgumentException('Unexpected $directory value:' . gettype($directory));
+            throw new InvalidArgumentException('Unexpected $directory value:'.gettype($directory));
         }
         if ($exclude !== null) {
             if (is_string($exclude)) {
@@ -104,49 +111,10 @@ class Util
                     $finder->notPath(Util::getRelativePath($path, $directory));
                 }
             } else {
-                throw new InvalidArgumentException('Unexpected $exclude value:' . gettype($exclude));
+                throw new InvalidArgumentException('Unexpected $exclude value:'.gettype($exclude));
             }
         }
 
         return $finder;
-    }
-
-    /**
-     * Escapes the special characters "/" and "~".
-     *
-     * https://swagger.io/docs/specification/using-ref/
-     * https://tools.ietf.org/html/rfc6901#page-3
-     */
-    public static function refEncode(string $raw): string
-    {
-        return str_replace('/', '~1', str_replace('~', '~0', $raw));
-    }
-
-    /**
-     * Converted the escaped characters "~1" and "~" back to "/" and "~".
-     *
-     * https://swagger.io/docs/specification/using-ref/
-     * https://tools.ietf.org/html/rfc6901#page-3
-     */
-    public static function refDecode(string $encoded): string
-    {
-        return str_replace('~1', '/', str_replace('~0', '~', $encoded));
-    }
-
-    /**
-     * Shorten class name(s).
-     *
-     * @param array|object|string $classes Class(es) to shorten
-     *
-     * @return string|string[] One or more shortened class names
-     */
-    public static function shorten($classes)
-    {
-        $short = [];
-        foreach ((array) $classes as $class) {
-            $short[] = '@' . str_replace('OpenApi\\Annotations\\', 'OA\\', $class);
-        }
-
-        return is_array($classes) ? $short : array_pop($short);
     }
 }

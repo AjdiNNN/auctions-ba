@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  * A Components Object: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#components-object
@@ -29,73 +27,73 @@ class Components extends AbstractAnnotation
      *
      * @var Schema[]
      */
-    public $schemas = Generator::UNDEFINED;
+    public $schemas = UNDEFINED;
 
     /**
      * Reusable Responses.
      *
      * @var Response[]
      */
-    public $responses = Generator::UNDEFINED;
+    public $responses = UNDEFINED;
 
     /**
      * Reusable Parameters.
      *
      * @var Parameter[]
      */
-    public $parameters = Generator::UNDEFINED;
+    public $parameters = UNDEFINED;
 
     /**
      * Reusable Examples.
      *
      * @var Examples[]
      */
-    public $examples = Generator::UNDEFINED;
+    public $examples = UNDEFINED;
 
     /**
      * Reusable Request Bodys.
      *
      * @var RequestBody[]
      */
-    public $requestBodies = Generator::UNDEFINED;
+    public $requestBodies = UNDEFINED;
 
     /**
      * Reusable Headers.
      *
      * @var Header[]
      */
-    public $headers = Generator::UNDEFINED;
+    public $headers = UNDEFINED;
 
     /**
      * Reusable Security Schemes.
      *
      * @var SecurityScheme[]
      */
-    public $securitySchemes = Generator::UNDEFINED;
+    public $securitySchemes = UNDEFINED;
 
     /**
      * Reusable Links.
      *
      * @var Link[]
      */
-    public $links = Generator::UNDEFINED;
+    public $links = UNDEFINED;
 
     /**
      * Reusable Callbacks.
      *
-     * @var callable[]
+     * @var callback[]
      */
-    public $callbacks = Generator::UNDEFINED;
+    public $callbacks = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         OpenApi::class,
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         Schema::class => ['schemas', 'schema'],
@@ -106,6 +104,5 @@ class Components extends AbstractAnnotation
         Header::class => ['headers', 'header'],
         SecurityScheme::class => ['securitySchemes', 'securityScheme'],
         Link::class => ['links', 'link'],
-        Attachable::class => ['attachables'],
     ];
 }

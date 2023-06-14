@@ -31,7 +31,7 @@ class CleanUnmergedTest extends OpenApiTestCase
 )
 
 END;
-        $analysis = new Analysis($this->parseComment($comment), $this->getContext());
+        $analysis = new Analysis($this->parseComment($comment));
         $this->assertCount(4, $analysis->annotations);
         $analysis->process(new MergeIntoOpenApi());
         $this->assertCount(5, $analysis->annotations);

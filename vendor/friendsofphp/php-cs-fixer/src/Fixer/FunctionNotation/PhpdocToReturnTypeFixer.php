@@ -47,9 +47,6 @@ final class PhpdocToReturnTypeFixer extends AbstractPhpdocToTypeDeclarationFixer
         'null' => true,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -74,7 +71,7 @@ function f2()
 function my_foo()
 {}
 ',
-                    new VersionSpecification(70200)
+                    new VersionSpecification(7_02_00)
                 ),
                 new CodeSample(
                     '<?php
@@ -97,7 +94,7 @@ final class Foo {
     }
 }
 ',
-                    new VersionSpecification(80000)
+                    new VersionSpecification(8_00_00)
                 ),
             ],
             null,
@@ -105,9 +102,6 @@ final class Foo {
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound([T_FUNCTION, T_FN]);
@@ -129,12 +123,9 @@ final class Foo {
         return isset($this->skippedTypes[$type]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
-        if (\PHP_VERSION_ID >= 80000) {
+        if (\PHP_VERSION_ID >= 8_00_00) {
             unset($this->skippedTypes['mixed']);
         }
 

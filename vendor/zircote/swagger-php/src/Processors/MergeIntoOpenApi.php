@@ -7,10 +7,8 @@
 namespace OpenApi\Processors;
 
 use OpenApi\Analysis;
-use OpenApi\Annotations\AbstractAnnotation;
 use OpenApi\Annotations\OpenApi;
 use OpenApi\Context;
-use OpenApi\Generator;
 
 /**
  * Merge all @OA\OpenApi annotations into one.
@@ -21,7 +19,7 @@ class MergeIntoOpenApi
     {
         // Auto-create the OpenApi annotation.
         if (!$analysis->openapi) {
-            $context = new Context([], $analysis->context);
+            $context = new Context(['analysis' => $analysis]);
             $analysis->addAnnotation(new OpenApi(['_context' => $context]), $context);
         }
         $openapi = $analysis->openapi;
@@ -29,7 +27,6 @@ class MergeIntoOpenApi
 
         // Merge annotations into the target openapi
         $merge = [];
-        /** @var AbstractAnnotation $annotation */
         foreach ($analysis->annotations as $annotation) {
             if ($annotation === $openapi) {
                 continue;
@@ -38,9 +35,9 @@ class MergeIntoOpenApi
                 $paths = $annotation->paths;
                 unset($annotation->paths);
                 $openapi->mergeProperties($annotation);
-                if ($paths !== Generator::UNDEFINED) {
+                if ($paths !== UNDEFINED) {
                     foreach ($paths as $path) {
-                        if ($openapi->paths === Generator::UNDEFINED) {
+                        if ($openapi->paths === UNDEFINED) {
                             $openapi->paths = [];
                         }
                         $openapi->paths[] = $path;

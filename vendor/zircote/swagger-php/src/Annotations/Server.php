@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  * A Server Object https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#server-object
@@ -22,7 +20,7 @@ class Server extends AbstractAnnotation
      *
      * @var string
      */
-    public $url = Generator::UNDEFINED;
+    public $url = UNDEFINED;
 
     /**
      * An optional string describing the host designated by the URL.
@@ -30,7 +28,7 @@ class Server extends AbstractAnnotation
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * A map between a variable name and its value.
@@ -38,10 +36,10 @@ class Server extends AbstractAnnotation
      *
      * @var array
      */
-    public $variables = Generator::UNDEFINED;
+    public $variables = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_parents = [
         OpenApi::class,
@@ -59,20 +57,19 @@ class Server extends AbstractAnnotation
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         ServerVariable::class => ['variables', 'serverVariable'],
-        Attachable::class => ['attachables'],
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_required = ['url'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [
         'url' => 'string',

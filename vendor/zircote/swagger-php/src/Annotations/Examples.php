@@ -6,8 +6,6 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
-
 /**
  * @Annotation
  */
@@ -18,21 +16,21 @@ class Examples extends AbstractAnnotation
      *
      * @var string
      */
-    public $ref = Generator::UNDEFINED;
+    public $ref = UNDEFINED;
 
     /**
      * The key into Components->examples array.
      *
      * @var string
      */
-    public $example = Generator::UNDEFINED;
+    public $example = UNDEFINED;
 
     /**
      * Short description for the example.
      *
      * @var string
      */
-    public $summary = Generator::UNDEFINED;
+    public $summary = UNDEFINED;
 
     /**
      * Embedded literal example. The value field and externalValue field are
@@ -42,7 +40,7 @@ class Examples extends AbstractAnnotation
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * Embedded literal example.
@@ -53,7 +51,7 @@ class Examples extends AbstractAnnotation
      *
      * @var string
      */
-    public $value = Generator::UNDEFINED;
+    public $value = UNDEFINED;
 
     /**
      * A URL that points to the literal example. This provides the
@@ -63,7 +61,7 @@ class Examples extends AbstractAnnotation
      *
      * @var string
      */
-    public $externalValue = Generator::UNDEFINED;
+    public $externalValue = UNDEFINED;
 
     public static $_types = [
         'summary' => 'string',
@@ -77,14 +75,5 @@ class Examples extends AbstractAnnotation
         Components::class,
         Parameter::class,
         MediaType::class,
-        JsonContent::class,
-        XmlContent::class,
-    ];
-
-    /**
-     * @inheritdoc
-     */
-    public static $_nested = [
-        Attachable::class => ['attachables'],
     ];
 }

@@ -6,12 +6,11 @@
 
 namespace OpenApi;
 
+use Closure;
 use Exception;
 
 /**
  * Logger reports the parser and validation messages.
- *
- * @deprecated use \OpenApi\Generator and PSR logger instead
  */
 class Logger
 {
@@ -23,7 +22,7 @@ class Logger
     public static $instance;
 
     /**
-     * @var callable
+     * @var Closure
      */
     public $log;
 
@@ -41,7 +40,10 @@ class Logger
         };
     }
 
-    public static function getInstance(): Logger
+    /**
+     * @return Logger
+     */
+    public static function getInstance()
     {
         if (self::$instance === null) {
             self::$instance = new Logger();
@@ -55,7 +57,7 @@ class Logger
      *
      * @param Exception|string $entry
      */
-    public static function warning($entry): void
+    public static function warning($entry)
     {
         call_user_func(self::getInstance()->log, $entry, E_USER_WARNING);
     }
@@ -65,7 +67,7 @@ class Logger
      *
      * @param Exception|string $entry
      */
-    public static function notice($entry): void
+    public static function notice($entry)
     {
         call_user_func(self::getInstance()->log, $entry, E_USER_NOTICE);
     }
@@ -73,12 +75,17 @@ class Logger
     /**
      * Shorten class name(s).
      *
-     * @param array|object|string $classes Class(es) to shorten
+     * @param string|object|[] $classes Class(es) to shorten
      *
-     * @return string|string[] One or more shortened class names
+     * @return string|[] One or more shortened class names
      */
     public static function shorten($classes)
     {
-        return Util::shorten($classes);
+        $short = [];
+        foreach ((array) $classes as $class) {
+            $short[] = '@'.str_replace('OpenApi\Annotations\\', 'OA\\', $class);
+        }
+
+        return is_array($classes) ? $short : array_pop($short);
     }
 }

@@ -6,7 +6,7 @@
 
 namespace OpenApi\Annotations;
 
-use OpenApi\Generator;
+use OpenApi\Logger;
 
 /**
  * @Annotation
@@ -22,7 +22,7 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var string
      */
-    public $path = Generator::UNDEFINED;
+    public $path = UNDEFINED;
 
     /**
      * A list of tags for API documentation control.
@@ -30,7 +30,7 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var string[]
      */
-    public $tags = Generator::UNDEFINED;
+    public $tags = UNDEFINED;
 
     /**
      * Key in the OpenApi "Path Item Object" for this operation.
@@ -38,14 +38,14 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var string
      */
-    public $method = Generator::UNDEFINED;
+    public $method = UNDEFINED;
 
     /**
      * A short summary of what the operation does.
      *
      * @var string
      */
-    public $summary = Generator::UNDEFINED;
+    public $summary = UNDEFINED;
 
     /**
      * A verbose explanation of the operation behavior.
@@ -53,14 +53,14 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var string
      */
-    public $description = Generator::UNDEFINED;
+    public $description = UNDEFINED;
 
     /**
      * Additional external documentation for this operation.
      *
      * @var ExternalDocumentation
      */
-    public $externalDocs = Generator::UNDEFINED;
+    public $externalDocs = UNDEFINED;
 
     /**
      * Unique string used to identify the operation.
@@ -69,7 +69,7 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var string
      */
-    public $operationId = Generator::UNDEFINED;
+    public $operationId = UNDEFINED;
 
     /**
      * A list of parameters that are applicable for this operation.
@@ -80,7 +80,7 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var Parameter[]
      */
-    public $parameters = Generator::UNDEFINED;
+    public $parameters = UNDEFINED;
 
     /**
      * The request body applicable for this operation.
@@ -89,14 +89,14 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var RequestBody
      */
-    public $requestBody = Generator::UNDEFINED;
+    public $requestBody = UNDEFINED;
 
     /**
      * The list of possible responses as they are returned from executing this operation.
      *
      * @var \OpenApi\Annotations\Response[]
      */
-    public $responses = Generator::UNDEFINED;
+    public $responses = UNDEFINED;
 
     /**
      * A map of possible out-of band callbacks related to the parent operation.
@@ -104,9 +104,9 @@ abstract class Operation extends AbstractAnnotation
      * Each value in the map is a Callback Object that describes a request that may be initiated by the API provider and the expected responses.
      * The key value used to identify the callback object is an expression, evaluated at runtime, that identifies a URL to use for the callback operation.
      *
-     * @var callable[]
+     * @var callback[]
      */
-    public $callbacks = Generator::UNDEFINED;
+    public $callbacks = UNDEFINED;
 
     /**
      * Declares this operation to be deprecated.
@@ -115,7 +115,7 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var bool
      */
-    public $deprecated = Generator::UNDEFINED;
+    public $deprecated = UNDEFINED;
 
     /**
      * A declaration of which security mechanisms can be used for this operation.
@@ -126,7 +126,7 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var array
      */
-    public $security = Generator::UNDEFINED;
+    public $security = UNDEFINED;
 
     /**
      * An alternative server array to service this operation.
@@ -134,15 +134,15 @@ abstract class Operation extends AbstractAnnotation
      *
      * @var Server[]
      */
-    public $servers = Generator::UNDEFINED;
+    public $servers = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_required = ['responses'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [
         'path' => 'string',
@@ -154,7 +154,7 @@ abstract class Operation extends AbstractAnnotation
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         Parameter::class => ['parameters'],
@@ -162,15 +162,11 @@ abstract class Operation extends AbstractAnnotation
         ExternalDocumentation::class => 'externalDocs',
         Server::class => ['servers'],
         RequestBody::class => 'requestBody',
-        Attachable::class => ['attachables'],
     ];
 
     /**
-     * @inheritdoc
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         $data = parent::jsonSerialize();
@@ -188,16 +184,16 @@ abstract class Operation extends AbstractAnnotation
         return $data;
     }
 
-    public function validate(array $parents = [], array $skip = [], string $ref = ''): bool
+    public function validate($parents = [], $skip = [], $ref = '')
     {
         if (in_array($this, $skip, true)) {
             return true;
         }
         $valid = parent::validate($parents, $skip);
-        if ($this->responses !== Generator::UNDEFINED) {
+        if ($this->responses !== UNDEFINED) {
             foreach ($this->responses as $response) {
-                if ($response->response !== Generator::UNDEFINED && $response->response !== 'default' && preg_match('/^([12345]{1}[0-9]{2})|([12345]{1}XX)$/', (string) $response->response) === 0) {
-                    $this->_context->logger->warning('Invalid value "' . $response->response . '" for ' . $response->_identity([]) . '->response, expecting "default", a HTTP Status Code or HTTP Status Code range definition in ' . $response->_context);
+                if ($response->response !== UNDEFINED && $response->response !== 'default' && preg_match('/^([12345]{1}[0-9]{2})|([12345]{1}XX)$/', (string) $response->response) === 0) {
+                    Logger::notice('Invalid value "'.$response->response.'" for '.$response->_identity([]).'->response, expecting "default", a HTTP Status Code or HTTP Status Code range definition in '.$response->_context);
                 }
             }
         }

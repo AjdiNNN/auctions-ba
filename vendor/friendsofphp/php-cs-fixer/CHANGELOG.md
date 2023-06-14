@@ -3,6 +3,134 @@ CHANGELOG for PHP CS Fixer
 
 This file contains changelogs for stable releases only.
 
+Changelog for v3.17.0
+---------------------
+
+* bug: Allow string quote to be escaped within phpdoc constant (#6798)
+* bug: ConfigurationResolver - fix running without cache (#6915)
+* bug: Fix array/object shape phpdoc type parse (#6962)
+* bug: Fix FullyQualifiedStrictTypesFixer common prefix bug (#6898)
+* bug: Fix non-parenthesized callable return type parse (#6961)
+* bug: Fix parsing of edge cases phpdoc types (#6977)
+* bug: FullyQualifiedStrictTypesFixer - fix for FQCN type with class with the same name being imported (#6923)
+* bug: GroupImportFixer - support for aliased imports (#6951)
+* bug: MultilineWhitespaceBeforeSemicolonsFixer - fix chained calls (#6926)
+* bug: MultilineWhitespaceBeforeSemicolonsFixer - fix for discovering multi line calls (#6938)
+* bug: NoBreakCommentFixer - fix for nested match (#6899)
+* bug: NoExtraBlankLinesFixer - fix for attribute in abstract function (#6920)
+* bug: PhpdocTypesFixer - handle types with no space between type and variable (#6922)
+* bug: PhpUnitMockShortWillReturnFixer - fix for trailing commas (#6900)
+* bug: StatementIndentationFixer - fix comments at the end of if/elseif/else blocks (#6918)
+* bug: StatementIndentationFixer - fix for multiline arguments starting with "new" keyword (#6913)
+* bug: StatementIndentationFixer - fix for multiline arguments starting with "new" keyword preceded by class instantiation (#6914)
+* bug: VoidReturnFixer - fix for intervening attributes (#6863)
+* docs: improve code samples for MultilineWhitespaceBeforeSemicolonsFixer (#6919)
+* docs: improve cookbook (#6880)
+* DX: add cache related tests (#6916)
+* DX: Apply `self_static_accessor` fixer to the project (again) (#6927)
+* DX: cancel running builds on subsequent pushes in CI (#6940)
+* DX: convert more `static` to `self` assert calls (#6931)
+* DX: fix GitHub Actions errors and warnings (#6917)
+* DX: fix Unsafe call to private method errors reported by PHPStan (#6879)
+* DX: Improve performance of FunctionsAnalyzer (#6939)
+* DX: improve test method names to avoid confusion (#6974)
+* DX: Include self_static_accessor fixer in PhpCsFixer set (#6882)
+* DX: make data providers static with straight-forward changes (#6907)
+* DX: Mark Tokens::getNamespaceDeclarations as @internal (#6949)
+* DX: PHPStan improvements (#6868)
+* DX: refactor PhpdocAlignFixerTest (#6925)
+* DX: Remove @inheritdoc PHPDoc (#6955)
+* DX: Run AutoReview tests only once (#6889)
+* DX: simplify EncodingFixer (#6956)
+* DX: update Symfony rule set (#6958)
+* DX: Use $tokens->getNamespaceDeclarations() to improve performance (#6942)
+* DX: use force option for php_unit_data_provider_static in PHPUnit 10.0 migration set (#6908)
+* DX: use only PHP modules that are required (#6954)
+* DX: use PHPUnit's "requires" instead of "if" condition (#6975)
+* feature: Add align_multiline_comment rule to @Symfony (#6875)
+* feature: Add no_null_property_initialization rule to @Symfony (#6876)
+* feature: Add operator_linebreak rule to @Symfony (#6877)
+* feature: add SingleLineEmptyBodyFixer (#6933)
+* feature: DescribeCommand - allow describing custom fixers (#6957)
+* feature: Introduce `OrderedTypesFixer` (#6571)
+* feature: Order of PHPDoc @param annotations (#3909)
+* feature: Parse parenthesized & conditional phpdoc type (#6796)
+* feature: PhpUnitInternalClassFixer - add empty line before PHPDoc (#6924)
+* feature: [PhpdocAlignFixer] Add support for every tag (#6564)
+* minor: align NoSuperfluousPhpdocTagsFixer with actual Symfony configuration (#6953)
+* minor: do not add empty line in PHPDoc when adding annotation in PHPUnit class (#6928)
+* minor: PhpdocAlignFixer - support cases with type and variable separated with no space (#6921)
+* minor: PhpdocSeparationFixer - add integration tests (#6929)
+* minor: update PHPStan (to fix CI on master branch) (#6901)
+* minor: Use single Dockerfile with multiple build targets (#6840)
+
+Changelog for v3.16.0
+---------------------
+
+* bug: ControlStructureBracesFixer - handle closing tag (#6873)
+* bug: CurlyBracesPositionFixer - fix for callable return type (#6855)
+* bug: CurlyBracesPositionFixer - fix for DNF types (#6859)
+* bug: Fix MultilineWhitespaceBeforeSemicolonsFixer (#5126)
+* docs: Fix rule description (#6844)
+* DX: fix checkbashisms installation (#6843)
+* DX: make data providers static for fixer's tests (#6860)
+* DX: refactor PHPUnit fixers adding class-level annotation to use shared code (#6756)
+* DX: unify option's descriptions (#6856)
+* feature: AbstractPhpUnitFixer - support attribute detection in docblock insertion (#6858)
+* feature: add "force" option to PhpUnitDataProviderStaticFixer (#6757)
+* feature: introduce single_space_around_construct, deprecate single_space_after_construct (#6857)
+* feature: PhpUnitTestClassRequiresCoversFixer - support single-line PHPDocs (#6847)
+* minor: Deprecate BracesFixer (#4885)
+* minor: Fix autocompletion for `Tokens::offsetGet()` (#6838)
+* minor: PHP8.2 Docker runtime (#6833)
+* minor: Use Composer binary-only images instead of installer script (#6834)
+
+Changelog for v3.15.1
+---------------------
+
+* bug: BinaryOperatorSpacesFixer - fix for static in type (#6835)
+* bug: BinaryOperatorSpacesFixer - fix parameters with union types passed by reference (#6826)
+* bug: NoUnusedImportsFixer - fix for splat operator (#6836)
+* DX: fix CI (#6837)
+* feature: Support for type casing in arrow functions (#6831)
+* minor: fix CI on PHP 8.3 (#6827)
+
+Changelog for v3.15.0
+---------------------
+
+* bug: VisibilityRequiredFixer - handle DNF types (#6806)
+* DX: officially enable 8.2 support (#6825)
+
+Changelog for v3.14.5
+---------------------
+
+* bug: EmptyLoopBodyFixer must keep comments inside (#6800)
+* bug: FunctionsAnalyzer - fix detecting global function (#6792)
+* bug: NativeFunctionTypeDeclarationCasingFixer - do not require T_STRING present in code (#6812)
+* bug: PhpdocTypesFixer - do not change case of array keys (#6810)
+* bug: PhpUnitTestAnnotationFixer - do not break single line @depends (#6824)
+* docs: Add supported PHP versions section to the README (#6768)
+* docs: drop Atom from readme, due to it's sunsetting (#6778)
+* DX: Add composer keywords (#6781)
+* DX: update PHPStan to 1.10.3 (#6805)
+* feature: [PHP8.2] Support for readonly classes (#6745)
+* minor: add custom tokens for Disjunctive Normal Form types parentheses (#6823)
+* minor: PHP8.2 - handle union and intersection types for DNF types (#6804)
+* minor: PHP8.2 - support property in const expressions (#6803)
+
+Changelog for v3.14.4
+---------------------
+
+* bug: CurlyBracesPositionFixer - fix for open brace not preceded by space and followed by a comment (#6776)
+* docs: drop license end year (#6767)
+* DX: use numeric_literal_separator (#6766)
+* feature: Allow installation of `sebastian/diff:^5.0.0` (#6771)
+
+Changelog for v3.14.3
+---------------------
+
+* DX: Drop doctrine/annotations 1, allow doctrine/lexer 3 (#6730)
+
 Changelog for v3.14.2
 ---------------------
 

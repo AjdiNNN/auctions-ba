@@ -6,9 +6,9 @@
 
 namespace OpenApi\Annotations;
 
+use Exception;
 use OpenApi\Analysis;
-use OpenApi\Generator;
-use OpenApi\Util;
+use OpenApi\Logger;
 
 /**
  * @Annotation
@@ -32,7 +32,7 @@ class OpenApi extends AbstractAnnotation
      *
      * @var Info
      */
-    public $info = Generator::UNDEFINED;
+    public $info = UNDEFINED;
 
     /**
      * An array of Server Objects, which provide connectivity information to a target server.
@@ -40,21 +40,21 @@ class OpenApi extends AbstractAnnotation
      *
      * @var Server[]
      */
-    public $servers = Generator::UNDEFINED;
+    public $servers = UNDEFINED;
 
     /**
      * The available paths and operations for the API.
      *
      * @var PathItem[]
      */
-    public $paths = Generator::UNDEFINED;
+    public $paths = UNDEFINED;
 
     /**
      * An element to hold various components for the specification.
      *
      * @var Components
      */
-    public $components = Generator::UNDEFINED;
+    public $components = UNDEFINED;
 
     /**
      * Lists the required security schemes to execute this operation.
@@ -70,7 +70,7 @@ class OpenApi extends AbstractAnnotation
      *
      * @var array
      */
-    public $security = Generator::UNDEFINED;
+    public $security = UNDEFINED;
 
     /**
      * A list of tags used by the specification with additional metadata.
@@ -81,32 +81,32 @@ class OpenApi extends AbstractAnnotation
      *
      * @var Tag[]
      */
-    public $tags = Generator::UNDEFINED;
+    public $tags = UNDEFINED;
 
     /**
      * Additional external documentation.
      *
      * @var ExternalDocumentation
      */
-    public $externalDocs = Generator::UNDEFINED;
+    public $externalDocs = UNDEFINED;
 
     /**
      * @var Analysis
      */
-    public $_analysis = Generator::UNDEFINED;
+    public $_analysis = UNDEFINED;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_blacklist = ['_context', '_unmerged', '_analysis'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_required = ['openapi', 'info', 'paths'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_nested = [
         Info::class => 'info',
@@ -115,21 +115,20 @@ class OpenApi extends AbstractAnnotation
         Components::class => 'components',
         Tag::class => ['tags'],
         ExternalDocumentation::class => 'externalDocs',
-        Attachable::class => ['attachables'],
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $_types = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function validate(array $parents = null, array $skip = null, string $ref = ''): bool
+    public function validate($parents = null, $skip = null, $ref = null)
     {
-        if ($parents !== null || $skip !== null || $ref !== '') {
-            $this->_context->logger->warning('Nested validation for ' . $this->identity() . ' not allowed');
+        if ($parents !== null || $skip !== null || $ref !== null) {
+            Logger::notice('Nested validation for '.$this->identity().' not allowed');
 
             return false;
         }
@@ -139,21 +138,23 @@ class OpenApi extends AbstractAnnotation
 
     /**
      * Save the OpenAPI documentation to a file.
+     *
+     * @param string $filename
+     *
+     * @throws Exception
      */
-    public function saveAs(string $filename, string $format = 'auto'): void
+    public function saveAs($filename, $format = 'auto')
     {
         if ($format === 'auto') {
-            $format = strtolower(substr($filename, -5)) === '.json' ? 'json' : 'yaml';
+            $format =   strtolower(substr($filename, -5)) === '.json' ? 'json' : 'yaml';
         }
-
         if (strtolower($format) === 'json') {
             $content = $this->toJson();
         } else {
             $content = $this->toYaml();
         }
-
         if (file_put_contents($filename, $content) === false) {
-            throw new \Exception('Failed to saveAs("' . $filename . '", "' . $format . '")');
+            throw new Exception('Failed to saveAs("'.$filename.'", "'.$format.'")');
         }
     }
 
@@ -161,12 +162,14 @@ class OpenApi extends AbstractAnnotation
      * Look up an annotation with a $ref url.
      *
      * @param string $ref The $ref value, for example: "#/components/schemas/Product"
+     *
+     * @throws Exception
      */
-    public function ref(string $ref)
+    public function ref($ref)
     {
         if (substr($ref, 0, 2) !== '#/') {
             // @todo Add support for external (http) refs?
-            throw new \Exception('Unsupported $ref "' . $ref . '", it should start with "#/"');
+            throw new Exception('Unsupported $ref "'.$ref.'", it should start with "#/"');
         }
 
         return $this->resolveRef($ref, '#/', $this, []);
@@ -174,8 +177,11 @@ class OpenApi extends AbstractAnnotation
 
     /**
      * Recursive helper for ref().
+     *
+     * @param *     $container the container to resolve the ref in
+     * @param array $mapping
      */
-    private static function resolveRef(string $ref, string $resolved, $container, array $mapping)
+    private static function resolveRef($ref, $resolved, $container, $mapping)
     {
         if ($ref === $resolved) {
             return $container;
@@ -184,12 +190,12 @@ class OpenApi extends AbstractAnnotation
         $slash = strpos($path, '/');
 
         $subpath = $slash === false ? $path : substr($path, 0, $slash);
-        $property = Util::refDecode($subpath);
-        $unresolved = $slash === false ? $resolved . $subpath : $resolved . $subpath . '/';
+        $property = self::unescapeRef($subpath);
+        $unresolved = $slash === false ? $resolved.$subpath : $resolved.$subpath.'/';
 
         if (is_object($container)) {
             if (property_exists($container, $property) === false) {
-                throw new \Exception('$ref "' . $ref . '" not found');
+                throw new Exception('$ref "'.$ref.'" not found');
             }
             if ($slash === false) {
                 return $container->$property;
@@ -216,7 +222,38 @@ class OpenApi extends AbstractAnnotation
                 }
             }
         }
+        throw new Exception('$ref "'.$unresolved.'" not found');
+    }
 
-        throw new \Exception('$ref "' . $unresolved . '" not found');
+    /**
+     * Decode the $ref escape characters.
+     *
+     * https://swagger.io/docs/specification/using-ref/
+     * https://tools.ietf.org/html/rfc6901#page-3
+     */
+    private static function unescapeRef($encoded)
+    {
+        $decoded = '';
+        $length = strlen($encoded);
+        for ($i = 0; $i < $length; $i++) {
+            $char = $encoded[$i];
+            if ($char === '~' && $i !== $length - 1) {
+                $next = $encoded[$i + 1];
+                if ($next === '0') { // escaped `~`
+                    $decoded .= '~';
+                    $i++;
+                } elseif ($next === '1') { // escaped `/`
+                    $decoded .= '/';
+                    $i++;
+                } else {
+                    // this ~ had special meaning :-(
+                    $decoded .= $char;
+                }
+            } else {
+                $decoded .= $char;
+            }
+        }
+
+        return $decoded;
     }
 }

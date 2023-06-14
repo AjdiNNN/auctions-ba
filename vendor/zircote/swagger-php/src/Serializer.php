@@ -17,7 +17,6 @@ class Serializer
 {
     private static $VALID_ANNOTATIONS = [
         OA\AdditionalProperties::class,
-        OA\Attachable::class,
         OA\Components::class,
         OA\Contact::class,
         OA\Delete::class,
@@ -74,12 +73,17 @@ class Serializer
     /**
      * Deserialize a string.
      *
+     * @param $jsonString
+     * @param $className
+     *
+     * @throws \Exception
+     *
      * @return OA\AbstractAnnotation
      */
-    public function deserialize(string $jsonString, string $className)
+    public function deserialize($jsonString, $className)
     {
         if (!$this->isValidAnnotationClass($className)) {
-            throw new \Exception($className . ' is not defined in OpenApi PHP Annotations');
+            throw new \Exception($className.' is not defined in OpenApi PHP Annotations');
         }
 
         return $this->doDeserialize(json_decode($jsonString), $className);
@@ -88,12 +92,17 @@ class Serializer
     /**
      * Deserialize a file.
      *
+     * @param $filename
+     * @param $className
+     *
+     * @throws \Exception
+     *
      * @return OA\AbstractAnnotation
      */
-    public function deserializeFile(string $filename, string $className = OA\OpenApi::class)
+    public function deserializeFile($filename, $className = 'OpenApi\Annotations\OpenApi')
     {
         if (!$this->isValidAnnotationClass($className)) {
-            throw new \Exception($className . ' is not defined in OpenApi PHP Annotations');
+            throw new \Exception($className.' is not defined in OpenApi PHP Annotations');
         }
 
         return $this->doDeserialize(json_decode(file_get_contents($filename)), $className);
@@ -102,18 +111,20 @@ class Serializer
     /**
      * Do deserialization.
      *
+     * @param string $class the class name of annotation
+     *
      * @return OA\AbstractAnnotation
      */
-    protected function doDeserialize(\stdClass $c, string $class)
+    protected function doDeserialize(\stdClass $c, $class)
     {
-        $annotation = new $class(['_context' => new Context(['generated' => true])]);
-        foreach ((array) $c as $property => $value) {
+        $annotation = new $class([]);
+        foreach ($c as $property => $value) {
             if ($property === '$ref') {
                 $property = 'ref';
             }
 
             if (substr($property, 0, 2) === 'x-') {
-                if ($annotation->x === Generator::UNDEFINED) {
+                if ($annotation->x === UNDEFINED) {
                     $annotation->x = [];
                 }
                 $custom = substr($property, 2);
@@ -128,8 +139,10 @@ class Serializer
 
     /**
      * Deserialize the annotation's property.
+     *
+     * @param string $property
      */
-    protected function doDeserializeProperty(OA\AbstractAnnotation $annotation, string $property, $value)
+    protected function doDeserializeProperty(OA\AbstractAnnotation $annotation, $property, $value)
     {
         // property is primitive type
         if (array_key_exists($property, $annotation::$_types)) {
@@ -178,8 +191,8 @@ class Serializer
     /**
      * Deserialize base annotation property.
      *
-     * @param array|string $type  The property type
-     * @param mixed        $value The value to deserialization
+     * @param string $type  The property type
+     * @param mixed  $value The value to deserialization
      *
      * @return array|OA\AbstractAnnotation
      */
