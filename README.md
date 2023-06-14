@@ -37,7 +37,9 @@ In this release, the following features are available:
 
 
 ####CODING STANDARDS
+
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
 ###PSR-12
 ###Patterns used
 1. Singleton Pattern: The Config class in index.php is implemented as a Singleton pattern. It ensures that only one instance of the Config class is created and provides a global point of access to the configuration settings throughout the project.
