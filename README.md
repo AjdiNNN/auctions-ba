@@ -34,13 +34,10 @@ In this release, the following features are available:
 
 **testLoginTrueUser**: This test verifies the successful login process by attempting to log in with a valid email address and password. It expects a response with a status code of 200 and a token in the response data.
 
-
-
 ####CODING STANDARDS
-
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
-
 ###PSR-12
+
 ###Patterns used
 1. Singleton Pattern: The Config class in index.php is implemented as a Singleton pattern. It ensures that only one instance of the Config class is created and provides a global point of access to the configuration settings throughout the project.
 
