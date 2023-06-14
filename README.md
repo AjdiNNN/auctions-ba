@@ -52,6 +52,16 @@ In this release, the following features are available:
 11. Builder Pattern: The Flight::json() method used in various routes, such as POST /register, POST /login, POST /item, DELETE /item/{id}, etc., can be considered as an implementation of the Builder pattern. It constructs and returns JSON responses using a fluent interface, allowing flexibility in building the response object.
 
 13. Front Controller Pattern: The index.php file serves as the entry point and acts as a Front Controller for the application. It receives all requests, initializes the necessary components, handles routing, and dispatches requests to appropriate routes.
+### Architectural patterns used
+Model-View-Controller (MVC): The project follows the MVC pattern, where the routes defined in index.php act as the controllers, handling the requests and invoking appropriate services and DAOs. The services and DAOs represent the model layer, responsible for business logic and data access, respectively. The responses from the controllers are sent to the client as views.
+
+Dependency Injection (DI): The project utilizes DI to inject dependencies into various components. For example, the Flight framework is used for routing, and dependencies like the user DAO and JWT configuration are injected into the controllers and services. This promotes loose coupling and improves testability and maintainability.
+
+Data Access Object (DAO): The DAO pattern is employed to separate the data access logic from the rest of the application. The UserDao class provides methods to interact with the underlying database for user-related operations.
+
+Repository: Although not explicitly defined in the provided code, the DAO classes can be considered as a form of repository pattern. They encapsulate the data access logic, providing a clean interface to interact with the data source.
+
+RESTful API: The project follows the principles of REST (Representational State Transfer) to design the API endpoints. It uses HTTP methods (POST, GET) to perform CRUD (Create, Read, Update, Delete) operations on user data. The endpoints are structured in a resource-oriented manner, providing a stateless interface to access and manipulate user-related information.
 ---
 > Ajdin Hukić, Amina Kodžaga 
 > 
