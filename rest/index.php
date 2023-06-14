@@ -16,10 +16,6 @@ Flight::register('userDao', 'UserDao');
 Flight::register('itemService', 'ItemService');
 Flight::register('bidService', 'BidService');
 
-Flight::map('error', function (Exception $ex) {
-    // Handle error
-    Flight::json(['message' => $ex->getMessage()], 500);
-});
 
 /* utility function for reading query parameters from URL */
 Flight::map('query', function ($name, $default_value = null) {
@@ -52,13 +48,6 @@ Flight::route('/*', function () {
             return false;
         }
     }
-});
-
-/* REST API documentation endpoint */
-Flight::route('GET /docs.json', function () {
-    $openapi = \OpenApi\Generator::scan(['routes']);
-    header('Content-Type: application/json');
-    echo $openapi->toJson();
 });
 
 require_once __DIR__.'/routes/ItemRoutes.php';

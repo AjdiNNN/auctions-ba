@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '82f66857eca9c732ac8bf56c074cad40d0768053',
+        'reference' => 'e07450751d13df09fd0c2b5404bbf7c9c57a7358',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '82f66857eca9c732ac8bf56c074cad40d0768053',
+            'reference' => 'e07450751d13df09fd0c2b5404bbf7c9c57a7358',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -53,7 +53,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/annotations',
             'aliases' => array(),
-            'dev_requirement' => false,
+            'dev_requirement' => true,
         ),
         'doctrine/lexer' => array(
             'pretty_version' => '3.0.0',
@@ -62,7 +62,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/lexer',
             'aliases' => array(),
-            'dev_requirement' => false,
+            'dev_requirement' => true,
         ),
         'firebase/php-jwt' => array(
             'pretty_version' => 'v6.6.0',
@@ -188,7 +188,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/cache',
             'aliases' => array(),
-            'dev_requirement' => false,
+            'dev_requirement' => true,
         ),
         'psr/container' => array(
             'pretty_version' => '2.0.2',
@@ -422,7 +422,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/finder',
             'aliases' => array(),
-            'dev_requirement' => false,
+            'dev_requirement' => true,
         ),
         'symfony/options-resolver' => array(
             'pretty_version' => 'v6.3.0',
@@ -440,7 +440,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
             'aliases' => array(),
-            'dev_requirement' => false,
+            'dev_requirement' => true,
         ),
         'symfony/polyfill-intl-grapheme' => array(
             'pretty_version' => 'v1.27.0',
@@ -523,15 +523,6 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
-        'symfony/yaml' => array(
-            'pretty_version' => 'v6.3.0',
-            'version' => '6.3.0.0',
-            'reference' => 'a9a8337aa641ef2aa39c3e028f9107ec391e5927',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/yaml',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.1',
             'version' => '1.2.1.0',
@@ -540,15 +531,6 @@
             'install_path' => __DIR__ . '/../theseer/tokenizer',
             'aliases' => array(),
             'dev_requirement' => true,
-        ),
-        'zircote/swagger-php' => array(
-            'pretty_version' => '3.1.0',
-            'version' => '3.1.0.0',
-            'reference' => '9d172471e56433b5c7061006b9a766f262a3edfd',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../zircote/swagger-php',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
     ),
 );

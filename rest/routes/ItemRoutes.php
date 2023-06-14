@@ -90,7 +90,7 @@ Flight::route('POST /item', function () {
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
         return;
-    // if everything is ok, try to upload file
+        // if everything is ok, try to upload file
     } else {
         $imagePath = generateRandomString(19).".".$imageFileType;
         if (move_uploaded_file($file["tmp_name"], $target_dir.$imagePath)) {

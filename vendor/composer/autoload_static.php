@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0
+class ComposerStaticInit456fb0c2650308cd2ca3dcabff24a7f3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -19,7 +19,6 @@ class ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0
         'fc73bab8d04e21bcdda37ca319c63800' => __DIR__ . '/..' . '/mikecao/flight/flight/autoload.php',
         '5b7d984aab5ae919d3362ad9588977eb' => __DIR__ . '/..' . '/mikecao/flight/flight/Flight.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
-        '0ccdf99b8f62f02c52cba55802e0c2e7' => __DIR__ . '/..' . '/zircote/swagger-php/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -33,7 +32,6 @@ class ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\Service\\' => 26,
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
-            'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\Stopwatch\\' => 28,
             'Symfony\\Component\\Process\\' => 26,
@@ -51,10 +49,6 @@ class ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
             'PhpCsFixer\\' => 11,
-        ),
-        'O' => 
-        array (
-            'OpenApi\\' => 8,
         ),
         'F' => 
         array (
@@ -106,10 +100,6 @@ class ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0
         'Symfony\\Contracts\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
-        ),
-        'Symfony\\Component\\Yaml\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
         'Symfony\\Component\\String\\' => 
         array (
@@ -166,10 +156,6 @@ class ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0
         'PhpCsFixer\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src',
-        ),
-        'OpenApi\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zircote/swagger-php/src',
         ),
         'Firebase\\JWT\\' => 
         array (
@@ -1302,9 +1288,9 @@ class ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitba4a7edc0864e8e5d298b2f4b1cc4ee0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit456fb0c2650308cd2ca3dcabff24a7f3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit456fb0c2650308cd2ca3dcabff24a7f3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit456fb0c2650308cd2ca3dcabff24a7f3::$classMap;
 
         }, null, ClassLoader::class);
     }

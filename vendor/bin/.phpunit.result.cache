@@ -1,1 +1,0 @@
-{"version":1,"defects":{"UserRegistrationTest::testRegisterUser":7,"UserTest::testLoginUser":7,"UserTest::testLoginTrueUser":7},"times":{"UserRegistrationTest::testRegisterUser":0.017,"UserTest::testRegisterUserEmail":0.018,"UserTest::testRegisterUserUserName":0.013,"UserTest::testLoginUser":0.012,"UserTest::testLoginWrongPasswordUser":0.214,"UserTest::testLoginTrueUser":0.192}}

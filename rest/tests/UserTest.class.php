@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -29,7 +30,7 @@ class UserTest extends TestCase
           'Content-Type: application/json'
         ),
         ));
-        
+
         $response = curl_exec($curl);
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
@@ -66,7 +67,7 @@ class UserTest extends TestCase
           'Content-Type: application/json'
         ),
         ));
-        
+
         $response = curl_exec($curl);
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
@@ -101,18 +102,18 @@ class UserTest extends TestCase
             'Content-Type: application/json'
           ),
         ));
-        
+
         $response = curl_exec($curl);
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        
+
         $responseData = json_decode($response, true);
         // Assert that the response has a 200 status code
         $this->assertEquals(404, $httpcode);
         // Assert that the response contains the expected success message
         $this->assertEquals('User doesn\'t exist', $responseData['message']);
     }
-    
+
     public function testLoginWrongPasswordUser()
     {
         // Create a mock HTTP request with user registration data
@@ -137,18 +138,18 @@ class UserTest extends TestCase
             'Content-Type: application/json'
           ),
         ));
-        
+
         $response = curl_exec($curl);
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        
+
         $responseData = json_decode($response, true);
         // Assert that the response has a 200 status code
         $this->assertEquals(404, $httpcode);
         // Assert that the response contains the expected success message
         $this->assertEquals('Wrong password', $responseData['message']);
     }
-        
+
     public function testLoginTrueUser()
     {
         // Create a mock HTTP request with user registration data
@@ -173,11 +174,11 @@ class UserTest extends TestCase
             'Content-Type: application/json'
           ),
         ));
-        
+
         $response = curl_exec($curl);
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        
+
         $responseData = json_decode($response, true);
         // Assert that the response has a 200 status code
         $this->assertEquals(200, $httpcode);
