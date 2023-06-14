@@ -23,7 +23,7 @@ In this release, the following features are available:
 		16. POST /register
 		17. GET /user
 ##### Authorization done by JWT token authorization
-#### **PHPUnit tests**
+#### PHPUnit tests
 **testRegisterUserEmail**: This test verifies the registration process by attempting to register a user with an already registered email address. It expects a response with a status code of 500 and the message "Email already registered."
 
 **testRegisterUserUserName**: This test checks the registration process by attempting to register a user with an already taken username. It expects a response with a status code of 500 and the message "Username already registered."
@@ -34,11 +34,11 @@ In this release, the following features are available:
 
 **testLoginTrueUser**: This test verifies the successful login process by attempting to log in with a valid email address and password. It expects a response with a status code of 200 and a token in the response data.
 
-####CODING STANDARDS
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
-###PSR-12
+#### Coding Standards
+- [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+- ### PSR-12
 
-###Patterns used
+### Design patterns used
 1. Singleton Pattern: The Config class in index.php is implemented as a Singleton pattern. It ensures that only one instance of the Config class is created and provides a global point of access to the configuration settings throughout the project.
 
 3. Factory Method Pattern: The Flight class in index.php acts as a Factory Method pattern. It creates instances of various classes such as UserService, ItemService, BidService, and UserDao, which are used throughout the application.
